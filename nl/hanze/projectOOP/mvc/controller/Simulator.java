@@ -1,5 +1,4 @@
-package Parkeersimulator;
-
+package nl.hanze.projectOOP.mvc;
 import java.util.Random;
 
 public class Simulator {
@@ -39,7 +38,7 @@ public class Simulator {
 
     public void run() {
         for (int i = 0; i < 10000; i++) {
-            tick();
+            tick(); 
         }
     }
 
