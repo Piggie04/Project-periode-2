@@ -1,105 +1,67 @@
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
+package nl.hanze.projectOOP.mvc;
 
-public class BarGraph extends JPanel {
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-    private double[] values;
-    private String[] labels;
-    private Color[] colors;
-    private String title;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-    public BarGraph(double[] values, String[] labels, Color[] colors, String title) {
-        this.labels = labels;
-        this.values = values;
-        this.colors = colors;
-        this.title = title;
+
+public class BarGraph extends JPanel
+{
+    private Map<Color, Integer> bars = new LinkedHashMap<Color, Integer>();
+
+    public void addBar(Color color, int value)
+    {
+        bars.put(color, value);
+        repaint();
     }
 
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        if (values == null || values.length == 0) {
-            return;
+    @Override
+    protected void paintComponent(Graphics g)
+    {
+        // determine longest bar
+
+        int max = Integer.MIN_VALUE;
+        for (Integer value : bars.values())
+        {
+            max = Math.max(max, value);
         }
 
-        double minValue = 0;
-        double maxValue = 0;
-        for (int i = 0; i < values.length; i++) {
-            if (minValue > values[i]) {
-                minValue = values[i];
-            }
-            if (maxValue < values[i]) {
-                maxValue = values[i];
-            }
-        }
+        // paint bars
 
-        Dimension dim = getSize();
-        int panelWidth = dim.width;
-        int panelHeight = dim.height;
-        int barWidth = panelWidth / values.length;
-
-        Font titleFont = new Font("Book Antiqua", Font.BOLD, 15);
-        FontMetrics titleFontMetrics = g.getFontMetrics(titleFont);
-
-        Font labelFont = new Font("Book Antiqua", Font.PLAIN, 14);
-        FontMetrics labelFontMetrics = g.getFontMetrics(labelFont);
-
-        int titleWidth = titleFontMetrics.stringWidth(title);
-        int stringHeight = titleFontMetrics.getAscent();
-        int stringWidth = (panelWidth - titleWidth) / 2;
-        g.setFont(titleFont);
-        g.drawString(title, stringWidth, stringHeight);
-
-        int top = titleFontMetrics.getHeight();
-        int bottom = labelFontMetrics.getHeight();
-        if (maxValue == minValue) {
-            return;
-        }
-        double scale = (panelHeight - top - bottom) / (maxValue - minValue);
-        stringHeight = panelHeight - labelFontMetrics.getDescent();
-        g.setFont(labelFont);
-        for (int j = 0; j < values.length; j++) {
-            int valueP = j * barWidth + 1;
-            int valueQ = top;
-            int height = (int) (values[j] * scale);
-            if (values[j] >= 0) {
-                valueQ += (int) ((maxValue - values[j]) * scale);
-            } else {
-                valueQ += (int) (maxValue * scale);
-                height = -height;
-            }
-
-            g.setColor(colors[j]);
-            g.fillRect(valueP, valueQ, barWidth - 2, height);
-            g.setColor(Color.black);
-            g.drawRect(valueP, valueQ, barWidth - 2, height);
-
-            int labelWidth = labelFontMetrics.stringWidth(labels[j]);
-            stringWidth = j * barWidth + (barWidth - labelWidth) / 2;
-            g.drawString(labels[j], stringWidth, stringHeight);
+        int width = (getWidth() / bars.size()) - 2;
+        int x = 1;
+        for (Color color : bars.keySet())
+        {
+            int value = bars.get(color);
+            int height = (int)
+                    ((getHeight()-5) * ((double)value / max));
+            g.setColor(color);
+            g.fillRect(x, getHeight() - height, width, height);
+            g.setColor(null);
+            g.drawRect(x, getHeight() - height, width, height);
+            x += (width + 2);
         }
     }
 
-    public static void main(String[] args) {
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(bars.size() * 10 + 2, 50);
+    }
 
-        JFrame.setDefaultLookAndFeelDecorated(true);
-        JFrame frame = new JFrame("Test");
+    public void run() {
+        JFrame frame = new JFrame("Bar Graph");
+        BarGraph chart = new BarGraph();
+        chart.addBar(Color.white, 100);
+        chart.addBar(Color.red, 20);
+        frame.setBackground(Color.white);
+        frame.getContentPane().add(chart);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(350, 300);
-
-        String title = "Test";
-        double[] values = new double[]{1,2,3,4,200};
-        String[] labels = new String[]{"A","B","C","D","E"};
-        Color[] colors = new Color[]{
-                Color.red,
-                Color.orange,
-                Color.yellow,
-                Color.green,
-                Color.blue
-        };
-        BarGraph bc = new BarGraph(values, labels, colors, title);
-
-        frame.add(bc);
+        frame.pack();
         frame.setVisible(true);
     }
 }

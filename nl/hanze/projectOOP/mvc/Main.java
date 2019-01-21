@@ -5,5 +5,7 @@ public class Main
     {
         Simulator test1 = new Simulator();
         test1.run();
+        BarGraph graph = new BarGraph();
+        graph.run();
     }
 }

@@ -22,6 +22,7 @@ public class SimulatorView extends JFrame {
 
         Container contentPane = getContentPane();
         contentPane.add(carParkView, BorderLayout.CENTER);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
 
@@ -202,8 +203,8 @@ public class SimulatorView extends JFrame {
             graphics.fillRect(
                     location.getFloor() * 260 + (1 + (int)Math.floor(location.getRow() * 0.5)) * 75 + (location.getRow() % 2) * 20,
                     60 + location.getPlace() * 10,
-                    20 - 1,
-                    10 - 1); // TODO use dynamic size or constants
+                    19,
+                    9); // TODO use dynamic size or constants
         }
     }
 
