@@ -7,5 +7,7 @@ public class Main
         test1.run();
         BarGraph graph = new BarGraph();
         graph.run();
+        Graph graph1 = new Graph();
+        graph1.run();
     }
 }

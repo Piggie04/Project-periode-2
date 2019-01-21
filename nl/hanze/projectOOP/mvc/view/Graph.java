@@ -11,7 +11,7 @@ import javax.swing.SwingUtilities;
 public class Graph {
     private JFrame frame;
 
-    public static void main(String[] args) {
+    public void run() {
         SwingUtilities.invokeLater(new Graph()::createAndShowGui);
     }
 
