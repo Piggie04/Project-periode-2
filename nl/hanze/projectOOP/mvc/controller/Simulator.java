@@ -1,5 +1,4 @@
-package Parkeersimulator;
-
+package nl.hanze.projectOOP.mvc;
 import java.util.Random;
 
 public class Simulator {
