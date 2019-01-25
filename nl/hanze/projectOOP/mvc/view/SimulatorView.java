@@ -25,6 +25,8 @@ public class SimulatorView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
+        GraphView graph1 = new GraphView();
+        graph1.run();
 
         updateView();
     }

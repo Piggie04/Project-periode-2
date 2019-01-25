@@ -8,11 +8,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-public class Graph {
+public class GraphView {
     private JFrame frame;
 
     public void run() {
-        SwingUtilities.invokeLater(new Graph()::createAndShowGui);
+        SwingUtilities.invokeLater(new GraphView()::createAndShowGui);
     }
 
     private void createAndShowGui() {
