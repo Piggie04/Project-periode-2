@@ -1,4 +1,4 @@
-package nl.hanze.projectOOP.mvc;
+package nl.hanze.projectOOP.mvc.view;
 
 public class Location {
 

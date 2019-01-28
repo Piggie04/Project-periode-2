@@ -1,4 +1,6 @@
 package nl.hanze.projectOOP.mvc;
+import nl.hanze.projectOOP.mvc.controller.Simulator;
+import nl.hanze.projectOOP.mvc.view.BarGraphView;
 public class Main
 {
     public static void main(String[] args)

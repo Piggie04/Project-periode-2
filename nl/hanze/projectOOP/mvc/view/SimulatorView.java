@@ -1,5 +1,6 @@
-package nl.hanze.projectOOP.mvc;
+package nl.hanze.projectOOP.mvc.view;
 
+import nl.hanze.projectOOP.mvc.model.Car;
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,7 +11,7 @@ public class SimulatorView extends JFrame {
     private int numberOfPlaces;
     private int numberOfOpenSpots;
     private Car[][][] cars;
-
+    
     public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
         this.numberOfFloors = numberOfFloors;
         this.numberOfRows = numberOfRows;
@@ -19,14 +20,11 @@ public class SimulatorView extends JFrame {
         cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
         
         carParkView = new CarParkView();
-
+        
         Container contentPane = getContentPane();
         contentPane.add(carParkView, BorderLayout.CENTER);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
-        GraphView graph1 = new GraphView();
-        graph1.run();
 
         updateView();
     }

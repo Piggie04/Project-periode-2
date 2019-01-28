@@ -1,5 +1,6 @@
-package nl.hanze.projectOOP.mvc;
+package nl.hanze.projectOOP.mvc.view;
 import java.awt.Dimension;
+import nl.hanze.projectOOP.mvc.view.SimulatorView;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -24,14 +25,31 @@ public class BarGraphView extends javax.swing.JFrame {
     public BarGraphView() {
         initComponents();
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.setValue(80, "Aantal auto's", "Momenteel");
-        JFreeChart chart = ChartFactory.createBarChart("Lengte Queue", null, "Aantal", dataset, PlotOrientation.VERTICAL, false, true, false);
+        dataset.setValue(80, "B", "Bezoekers");
+        dataset.setValue(10, "A", "Abonnementen");
+        JFreeChart chart = ChartFactory.createBarChart("Lengte Queue", "Soort auto", "Aantal", dataset, PlotOrientation.VERTICAL, false, true, false);
         jPanel1.setLayout(new java.awt.BorderLayout());
         jPanel1.setVisible(true);
         ChartPanel CP = new ChartPanel(chart);
         CP.setPreferredSize(new Dimension(100,200));
         jPanel1.add(CP);
         jPanel1.validate();
+        
+        DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
+        dataset1.setValue(10, "Dag", "Maandag");
+        dataset1.setValue(20, "Dag", "Dinsdag");
+        dataset1.setValue(30, "Dag", "Woensdag");
+        dataset1.setValue(40, "Dag", "Donderdag");
+        dataset1.setValue(50, "Dag", "Vrijdag");
+        dataset1.setValue(60, "Dag", "Zaterdag");
+        dataset1.setValue(70, "Dag", "Zondag");
+        JFreeChart chart1 = ChartFactory.createLineChart("Opbrengst", "Dag", "Aantal", dataset1, PlotOrientation.VERTICAL, true, true, true);
+        jPanel2.setLayout(new java.awt.BorderLayout());
+        jPanel2.setVisible(true);
+        ChartPanel CP1 = new ChartPanel(chart1);
+        CP1.setPreferredSize(new Dimension(100,200));
+        jPanel2.add(CP1);
+        jPanel2.validate();
     }
 
     /**
@@ -47,8 +65,10 @@ public class BarGraphView extends javax.swing.JFrame {
         lengteQueue = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         opbrengst = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         verlies = new javax.swing.JPanel();
         parkeergarage = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
         tellers = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -76,16 +96,26 @@ public class BarGraphView extends javax.swing.JFrame {
         );
 
         tabPanel.addTab("Lengte Queue", lengteQueue);
+        
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 275, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 281, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout opbrengstLayout = new javax.swing.GroupLayout(opbrengst);
         opbrengst.setLayout(opbrengstLayout);
         opbrengstLayout.setHorizontalGroup(
                 opbrengstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 275, Short.MAX_VALUE)
-        );
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)        );
         opbrengstLayout.setVerticalGroup(
                 opbrengstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 281, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         tabPanel.addTab("Opbrengst", opbrengst);
@@ -104,16 +134,27 @@ public class BarGraphView extends javax.swing.JFrame {
         tabPanel.addTab("Verlies", verlies);
 
         parkeergarage.setBackground(new java.awt.Color(200, 200, 200));
+        
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 275, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 281, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout parkeergarageLayout = new javax.swing.GroupLayout(parkeergarage);
         parkeergarage.setLayout(parkeergarageLayout);
         parkeergarageLayout.setHorizontalGroup(
                 parkeergarageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 434, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         parkeergarageLayout.setVerticalGroup(
                 parkeergarageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         tellers.setBackground(new java.awt.Color(200, 200, 200));
@@ -156,41 +197,13 @@ public class BarGraphView extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BarGraphView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BarGraphView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BarGraphView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BarGraphView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new BarGraphView().setVisible(true);
-            }
-        });
+    new BarGraphView().setVisible(true);
     }
 
     // Variables declaration - do not modify
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel lengteQueue;
     private javax.swing.JPanel opbrengst;
     private javax.swing.JPanel parkeergarage;

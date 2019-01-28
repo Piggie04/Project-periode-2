@@ -1,4 +1,9 @@
-package nl.hanze.projectOOP.mvc;
+package nl.hanze.projectOOP.mvc.controller;
+import nl.hanze.projectOOP.mvc.view.SimulatorView;
+import nl.hanze.projectOOP.mvc.model.Car;
+import nl.hanze.projectOOP.mvc.view.Location;
+import nl.hanze.projectOOP.mvc.model.AdHocCar;
+import nl.hanze.projectOOP.mvc.model.ParkingPassCar;
 import java.util.Random;
 
 public class Simulator {
