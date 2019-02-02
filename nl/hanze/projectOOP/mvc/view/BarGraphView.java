@@ -31,7 +31,7 @@ public class BarGraphView extends javax.swing.JFrame {
         jPanel1.setLayout(new java.awt.BorderLayout());
         jPanel1.setVisible(true);
         ChartPanel CP = new ChartPanel(chart);
-        CP.setPreferredSize(new Dimension(100,200));
+        CP.setPreferredSize(new Dimension(100,100));
         jPanel1.add(CP);
         jPanel1.validate();
         
@@ -47,7 +47,7 @@ public class BarGraphView extends javax.swing.JFrame {
         jPanel2.setLayout(new java.awt.BorderLayout());
         jPanel2.setVisible(true);
         ChartPanel CP1 = new ChartPanel(chart1);
-        CP1.setPreferredSize(new Dimension(100,200));
+        CP1.setPreferredSize(new Dimension(100,100));
         jPanel2.add(CP1);
         jPanel2.validate();
     }
