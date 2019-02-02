@@ -1,4 +1,5 @@
-package nl.hanze.projectOOP.mvc;
+package nl.hanze.projectOOP.mvc.controller;
+import nl.hanze.projectOOP.mvc.model.Car;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -14,6 +15,6 @@ public class CarQueue {
     }
 
     public int carsInQueue(){
-    	return queue.size();
+        return queue.size();
     }
 }
