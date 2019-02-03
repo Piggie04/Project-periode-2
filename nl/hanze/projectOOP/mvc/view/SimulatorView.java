@@ -28,6 +28,9 @@ public class SimulatorView extends JFrame {
     private javax.swing.JTabbedPane tabPanel;
     private javax.swing.JPanel tellers;
     private javax.swing.JPanel verlies;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSpinner jSpinner1;
 
     public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
 
@@ -85,6 +88,9 @@ public class SimulatorView extends JFrame {
         parkeergarage = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         tellers = new javax.swing.JPanel();
+        jTable1 = new javax.swing.JTable();
+        jSpinner1 = new javax.swing.JSpinner();
+        jScrollPane1 = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -174,15 +180,45 @@ public class SimulatorView extends JFrame {
 
         tellers.setBackground(new java.awt.Color(200, 200, 200));
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+                        {null, null, null, null}
+                },
+                new String [] {
+                        "Aantal auto's", "Misgelopen auto's", "Misgelopen opbrengst", "Opbrengst"
+                }
+        ) {
+            Class[] types = new Class [] {
+                    java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                    false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
         javax.swing.GroupLayout tellersLayout = new javax.swing.GroupLayout(tellers);
         tellers.setLayout(tellersLayout);
         tellersLayout.setHorizontalGroup(
                 tellersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(tellersLayout.createSequentialGroup()
+                                .addGap(0,0,0)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(0,0))
         );
         tellersLayout.setVerticalGroup(
                 tellersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 166, Short.MAX_VALUE)
+                        .addGroup(tellersLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
