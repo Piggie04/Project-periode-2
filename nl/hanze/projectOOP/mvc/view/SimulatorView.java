@@ -4,6 +4,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
+import nl.hanze.projectOOP.mvc.controller.Simulator;
 
 import nl.hanze.projectOOP.mvc.model.Car;
 import javax.swing.*;
@@ -18,9 +19,9 @@ public class SimulatorView extends JFrame {
     private int numberOfOpenSpots;
     private Car[][][] cars;
 
-    private int normaal = 0;
-    private int abonnee = 0;
-    private int reservering = 0;
+    private int totalAdHocCar;
+    private int totalParkingPassCar;
+    private int totalReservationCar;
 
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -35,6 +36,8 @@ public class SimulatorView extends JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JToggleButton jToggleButton1;
+
 
     public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
 
@@ -80,13 +83,13 @@ public class SimulatorView extends JFrame {
         jPanel2.add(CP1);
         jPanel2.validate();
 
-        int leeg = (540 - normaal - abonnee - reservering);
+        int empty = (540 - totalAdHocCar - totalParkingPassCar - totalReservationCar);
 
         DefaultPieDataset dataset2 = new DefaultPieDataset( );
-        dataset2.setValue( "Normaal" , normaal);
-        dataset2.setValue( "Abonnement" , abonnee);
-        dataset2.setValue( "Reservering" , reservering);
-        dataset2.setValue("Leeg", leeg);
+        dataset2.setValue( "Normaal" , totalAdHocCar);
+        dataset2.setValue( "Abonnement" , totalParkingPassCar);
+        dataset2.setValue( "Reservering" , totalReservationCar);
+        dataset2.setValue("Leeg", empty);
         JFreeChart chart2 = ChartFactory.createPieChart("Soort auto's", dataset2, true, true, true);
         jPanel4.setLayout(new java.awt.BorderLayout());
         jPanel4.setVisible(true);
@@ -111,6 +114,8 @@ public class SimulatorView extends JFrame {
         jSpinner1 = new javax.swing.JSpinner();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel4 = new javax.swing.JPanel();
+        jToggleButton1 = new javax.swing.JToggleButton();
+
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -236,17 +241,22 @@ public class SimulatorView extends JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        jToggleButton1.setText("Start/Stop");
+
+
         javax.swing.GroupLayout tellersLayout = new javax.swing.GroupLayout(tellers);
         tellers.setLayout(tellersLayout);
         tellersLayout.setHorizontalGroup(
                 tellersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(tellersLayout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         tellersLayout.setVerticalGroup(
                 tellersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(tellersLayout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jToggleButton1))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
