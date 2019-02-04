@@ -22,6 +22,8 @@ public class SimulatorView extends JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel startKnop;
     private javax.swing.JPanel lengteQueue;
     private javax.swing.JPanel opbrengst;
     private javax.swing.JPanel parkeergarage;
@@ -105,12 +107,14 @@ public class SimulatorView extends JFrame {
 
         tabPanel = new javax.swing.JTabbedPane();
         lengteQueue = new javax.swing.JPanel();
+        startKnop = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         opbrengst = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         verlies = new javax.swing.JPanel();
         parkeergarage = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
         tellers = new javax.swing.JPanel();
         jTable1 = new javax.swing.JTable();
         jSpinner1 = new javax.swing.JSpinner();
@@ -120,6 +124,35 @@ public class SimulatorView extends JFrame {
 
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jToggleButton1.setText("Start/Stop");
+
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+                jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(850, 850, Short.MAX_VALUE)
+                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        jPanel5Layout.setVerticalGroup(
+                jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(350, 350, Short.MAX_VALUE)
+                        .addComponent(jToggleButton1)
+        );
+
+        javax.swing.GroupLayout startknopLayout = new javax.swing.GroupLayout(startKnop);
+        startKnop.setLayout(startknopLayout);
+        startknopLayout.setHorizontalGroup(
+                startknopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel5, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+        );
+        startknopLayout.setVerticalGroup(
+                startknopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+        );
+
+        tabPanel.addTab("Start Knop", startKnop);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -210,6 +243,7 @@ public class SimulatorView extends JFrame {
         parkeergarageLayout.setHorizontalGroup(
                 parkeergarageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+
         );
         parkeergarageLayout.setVerticalGroup(
                 parkeergarageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,23 +277,18 @@ public class SimulatorView extends JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jToggleButton1.setText("Start/Stop");
-
-
         javax.swing.GroupLayout tellersLayout = new javax.swing.GroupLayout(tellers);
         tellers.setLayout(tellersLayout);
         tellersLayout.setHorizontalGroup(
                 tellersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(tellersLayout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        ));
         tellersLayout.setVerticalGroup(
                 tellersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(tellersLayout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jToggleButton1))
-        );
+        ));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
