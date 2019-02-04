@@ -10,6 +10,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import nl.hanze.projectOOP.mvc.model.Car;
 import javax.swing.*;
 import java.awt.*;
+import org.jfree.data.general.DefaultPieDataset;
 
 public class SimulatorView extends JFrame {
     private CarParkView carParkView;
@@ -23,6 +24,9 @@ public class SimulatorView extends JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel startKnop;
     private javax.swing.JPanel lengteQueue;
     private javax.swing.JPanel opbrengst;
     private javax.swing.JPanel parkeergarage;
@@ -32,6 +36,12 @@ public class SimulatorView extends JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JToggleButton jToggleButton1;
+
+    private int adHocCar = 0;
+    private int parkingCar = 0;
+    private int reservationCar = 0;
+
 
     public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
 
@@ -44,20 +54,22 @@ public class SimulatorView extends JFrame {
         carParkView = new CarParkView();
 
         Container contentPane = getContentPane();
-        contentPane.add(carParkView, BorderLayout.WEST);
+        contentPane.add(carParkView, BorderLayout.CENTER);
         pack();
         setVisible(true);
-
-        updateView();
         initComponents();
+        updateView();
+    }
+
+    private void updateViewer(){
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.setValue(80, "B", "Bezoekers");
-        dataset.setValue(10, "A", "Abonnementen");
-        JFreeChart chart = ChartFactory.createBarChart("Lengte Queue", "Soort auto", "Aantal", dataset, PlotOrientation.VERTICAL, false, true, false);
+        dataset.setValue(80, "Normaal", "Bezoekers");
+        dataset.setValue(10, "Abonnees", "Abonnementen");
+        JFreeChart chart = ChartFactory.createBarChart("Lengte Queue", "Soort auto", "Aantal", dataset, PlotOrientation.VERTICAL, true, true, false);
         jPanel1.setLayout(new java.awt.BorderLayout());
         jPanel1.setVisible(true);
         ChartPanel CP = new ChartPanel(chart);
-        CP.setPreferredSize(new Dimension(100,100));
+        CP.setPreferredSize(new Dimension(550,350));
         jPanel1.add(CP);
         jPanel1.validate();
 
@@ -73,33 +85,88 @@ public class SimulatorView extends JFrame {
         jPanel2.setLayout(new java.awt.BorderLayout());
         jPanel2.setVisible(true);
         ChartPanel CP1 = new ChartPanel(chart1);
-        CP1.setPreferredSize(new Dimension(100,100));
+        CP1.setPreferredSize(new Dimension(550,350));
         jPanel2.add(CP1);
         jPanel2.validate();
+
+
+        int empty = (540 - adHocCar - parkingCar - reservationCar);
+
+        DefaultPieDataset dataset2 = new DefaultPieDataset( );
+        dataset2.setValue( "Normaal" , adHocCar);
+        dataset2.setValue( "Abonnement" , parkingCar);
+        dataset2.setValue( "Reservering" , reservationCar);
+        dataset2.setValue("Leeg", empty);
+        JFreeChart chart2 = ChartFactory.createPieChart("Soort auto's", dataset2, true, true, true);
+        jPanel4.setLayout(new java.awt.BorderLayout());
+        jPanel4.setVisible(true);
+        ChartPanel CP2 = new ChartPanel(chart2);
+        CP2.setPreferredSize(new Dimension(550,350));
+        jPanel4.add(CP2);
+        jPanel4.validate();
     }
 
     private void initComponents() {
 
         tabPanel = new javax.swing.JTabbedPane();
         lengteQueue = new javax.swing.JPanel();
+        startKnop = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         opbrengst = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         verlies = new javax.swing.JPanel();
         parkeergarage = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
         tellers = new javax.swing.JPanel();
         jTable1 = new javax.swing.JTable();
         jSpinner1 = new javax.swing.JSpinner();
         jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel4 = new javax.swing.JPanel();
+        jToggleButton1 = new javax.swing.JToggleButton();
+
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jToggleButton1.setText("Start/Stop");
+
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+                jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(160, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+                jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jToggleButton1)
+                                .addContainerGap(136, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout startknopLayout = new javax.swing.GroupLayout(startKnop);
+        startKnop.setLayout(startknopLayout);
+        startknopLayout.setHorizontalGroup(
+                startknopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(100,100,100)
+                        .addComponent(jPanel5, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+        );
+        startknopLayout.setVerticalGroup(
+                startknopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
+        );
+
+        tabPanel.addTab("Start Knop", startKnop);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(500, 500, Short.MAX_VALUE)
+                        .addGap(850, 850, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,7 +190,7 @@ public class SimulatorView extends JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
                 jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(500, 500, Short.MAX_VALUE)
+                        .addGap(850, 850, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
                 jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,18 +209,29 @@ public class SimulatorView extends JFrame {
 
         tabPanel.addTab("Opbrengst", opbrengst);
 
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(850, 850, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(350, 350, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout verliesLayout = new javax.swing.GroupLayout(verlies);
         verlies.setLayout(verliesLayout);
         verliesLayout.setHorizontalGroup(
                 verliesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(500, 500, Short.MAX_VALUE)
+                        .addComponent(jPanel4, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
         );
         verliesLayout.setVerticalGroup(
                 verliesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(350, 350, Short.MAX_VALUE)
+                        .addComponent(jPanel4, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
         );
 
-        tabPanel.addTab("Verlies", verlies);
+        tabPanel.addTab("Soort auto's", verlies);
 
         parkeergarage.setBackground(new java.awt.Color(200, 200, 200));
 
@@ -173,6 +251,7 @@ public class SimulatorView extends JFrame {
         parkeergarageLayout.setHorizontalGroup(
                 parkeergarageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+
         );
         parkeergarageLayout.setVerticalGroup(
                 parkeergarageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,13 +290,13 @@ public class SimulatorView extends JFrame {
         tellersLayout.setHorizontalGroup(
                 tellersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(tellersLayout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        ));
         tellersLayout.setVerticalGroup(
                 tellersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(tellersLayout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+        ));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -254,6 +333,7 @@ public class SimulatorView extends JFrame {
 
     public void updateView() {
         carParkView.updateView();
+        updateViewer();
     }
 
     public int getNumberOfFloors() {
@@ -270,6 +350,13 @@ public class SimulatorView extends JFrame {
 
     public int getNumberOfOpenSpots(){
         return numberOfOpenSpots;
+    }
+
+    public void getCars(int totalAdHocCar, int totalParkingPassCar, int totalReservationCar)
+    {
+        this.adHocCar = totalAdHocCar;
+        this.parkingCar = totalParkingPassCar;
+        this.reservationCar  = totalReservationCar;
     }
 
     public Car getCarAt(Location location) {
@@ -351,6 +438,7 @@ public class SimulatorView extends JFrame {
         }
         return null;
     }
+
     public Car getFirstLeavingCar() {
         for (int floor = 0; floor < getNumberOfFloors(); floor++) {
             for (int row = 0; row < getNumberOfRows(); row++) {

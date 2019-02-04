@@ -11,9 +11,11 @@ import java.util.Random;
 
 public class Simulator {
 
-
-
-    private CarQueue entranceCarQueue;
+	private static final String AD_HOC = "1";
+	private static final String PASS = "2";
+	
+	
+	private CarQueue entranceCarQueue;
     private CarQueue entrancePassQueue;
     private CarQueue paymentCarQueue;
     private CarQueue exitCarQueue;
@@ -30,8 +32,22 @@ public class Simulator {
     int totalReservationCar = 0;
     int totalAdHocCar = 0;
     int totalCar = 0;
+    double priceCarparking = 1.10;
+
+    int totalParkingPassCar = 0;
+    int totalReservationCar = 0;
+    int totalAdHocCar = 0;
+    int totalCar = 0;
 
     int carsPassed = 0;
+
+
+    int carsPassed = 0;
+    double moneyEarned = 0.00;
+    double moneyEarnedDay = 0.00;
+    double moneyEarnedWeek = 0.00;
+
+    int carCounter = 0;
 
 
     double moneyEarned = 0.00;
@@ -52,6 +68,10 @@ public class Simulator {
     int enterSpeed = 3; // number of cars that can enter per minute
     int paymentSpeed = 7; // number of cars that can pay per minute
     int exitSpeed = 5; // number of cars that can leave per minute
+
+    int totalAdHocCar = 0;
+    int totalParkingPassCar = 0;
+    int totalReservationCar = 0;
 
     public Simulator() {
         entranceCarQueue = new CarQueue();
@@ -80,6 +100,7 @@ public class Simulator {
         advanceTime();
         handleExit();
         updateViews();
+        simulatorView.getCars(totalAdHocCar, totalParkingPassCar, totalReservationCar);
         // Pause.
         try {
             Thread.sleep(tickPause);
@@ -121,6 +142,9 @@ public class Simulator {
         // Update the car park view.
         simulatorView.updateView();
         //update the graph
+        simulatorView.carCounter(carCounter);
+        int missedCars = carsPassed;
+        simulatorView.missedCars(missedCars);
     }
 
     private void carsArriving() {
@@ -196,6 +220,7 @@ public class Simulator {
             exitCarQueue.removeCar();
             i++;
     	}
+        carCounter -=i;
     }
 
     private int getNumberOfCars(int weekDay, int weekend) {
