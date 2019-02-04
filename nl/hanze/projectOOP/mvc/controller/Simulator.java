@@ -31,47 +31,31 @@ public class Simulator {
     int totalParkingPassCar = 0;
     int totalReservationCar = 0;
     int totalAdHocCar = 0;
-    int totalCar = 0;
-    double priceCarparking = 1.10;
-
-    int totalParkingPassCar = 0;
-    int totalReservationCar = 0;
-    int totalAdHocCar = 0;
-    int totalCar = 0;
 
     int carsPassed = 0;
 
 
-    int carsPassed = 0;
     double moneyEarned = 0.00;
     double moneyEarnedDay = 0.00;
     double moneyEarnedWeek = 0.00;
 
     int carCounter = 0;
 
-
-    double moneyEarned = 0.00;
-    double moneyEarnedDay = 0.00;
-    double moneyEarnedWeek = 0.00;
-
     private int tickPause = 100;
 
     String[] daysoftheWeek = {"Maandag","Dinsdag","Woensdag","Donderdag","Vrijdag","Zaterdag","Zondag"};
 
-    int weekDayArrivals = 100; // average number of arriving cars per hour
-    int weekendArrivals = 150; // average number of arriving cars per hour
-    int weekDayPassArrivals = 30 ; // average number of arriving cars per hour
-    int weekendPassArrivals = 10;// average number of arriving cars per hour
-    int weekDayReservationArrival = 50;
-    int weekendReservationArrival = 150;
+    private int weekDayArrivals = 100; // average number of arriving cars per hour
+    private int weekendArrivals = 150; // average number of arriving cars per hour
+    private int weekDayPassArrivals = 30 ; // average number of arriving cars per hour
+    private int weekendPassArrivals = 10;// average number of arriving cars per hour
+    private int weekDayReservationArrival = 50;
+    private int weekendReservationArrival = 150;
 
     int enterSpeed = 3; // number of cars that can enter per minute
     int paymentSpeed = 7; // number of cars that can pay per minute
     int exitSpeed = 5; // number of cars that can leave per minute
 
-    int totalAdHocCar = 0;
-    int totalParkingPassCar = 0;
-    int totalReservationCar = 0;
 
     public Simulator() {
         entranceCarQueue = new CarQueue();
@@ -418,14 +402,14 @@ public class Simulator {
                     drukte = Math.random() * 1.2 + 0.8;
                     break;
                 case 17:
-                    if (daysoftheWeek[day] == "Thursday") {
+                    if (daysoftheWeek[day].equals("Thursday")) {
                         drukte = Math.random() * 1.7 + 0.8;
                     } else {
                         drukte = Math.random() * 1.4 + 0.7;
                     }
                     break;
                 case 18:
-                    if (daysoftheWeek[day] == "Thursday") {
+                    if (daysoftheWeek[day].equals("Thursday")) {
                         drukte = Math.random() * 2.0 + 1.5;
                     } else {
                         drukte = Math.random() * 1.5 + 0.9;
@@ -451,7 +435,7 @@ public class Simulator {
                     if(daysoftheWeek[day].equals("Thursday")){
                         drukte = Math.random() * 1.5 + 1.1;
                     }
-                    if (daysoftheWeek[day] == "Friday") {
+                    else if (daysoftheWeek[day].equals("Friday")) {
                         drukte = Math.random() * 1.5 + 1;
                     } else {
                         drukte = Math.random() * 0.9 + 0.6;
