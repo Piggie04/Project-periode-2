@@ -39,6 +39,10 @@ public class Simulator {
     int paymentSpeed = 7; // number of cars that can pay per minute
     int exitSpeed = 5; // number of cars that can leave per minute
 
+    int totalAdHocCar = 0;
+    int totalParkingPassCar = 0;
+    int totalReservationCar = 0;
+
     int carCounter = 0;
 
     public Simulator() {
