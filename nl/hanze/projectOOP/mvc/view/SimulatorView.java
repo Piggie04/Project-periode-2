@@ -54,13 +54,13 @@ public class SimulatorView extends JFrame {
         updateView();
         initComponents();
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.setValue(80, "B", "Bezoekers");
-        dataset.setValue(10, "A", "Abonnementen");
-        JFreeChart chart = ChartFactory.createBarChart("Lengte Queue", "Soort auto", "Aantal", dataset, PlotOrientation.VERTICAL, false, true, false);
+        dataset.setValue(80, "Normaal", "Bezoekers");
+        dataset.setValue(10, "Abonnees", "Abonnementen");
+        JFreeChart chart = ChartFactory.createBarChart("Lengte Queue", "Soort auto", "Aantal", dataset, PlotOrientation.VERTICAL, true, true, false);
         jPanel1.setLayout(new java.awt.BorderLayout());
         jPanel1.setVisible(true);
         ChartPanel CP = new ChartPanel(chart);
-        CP.setPreferredSize(new Dimension(850,350));
+        CP.setPreferredSize(new Dimension(550,350));
         jPanel1.add(CP);
         jPanel1.validate();
 
@@ -76,7 +76,7 @@ public class SimulatorView extends JFrame {
         jPanel2.setLayout(new java.awt.BorderLayout());
         jPanel2.setVisible(true);
         ChartPanel CP1 = new ChartPanel(chart1);
-        CP1.setPreferredSize(new Dimension(850,350));
+        CP1.setPreferredSize(new Dimension(550,350));
         jPanel2.add(CP1);
         jPanel2.validate();
 
@@ -87,11 +87,11 @@ public class SimulatorView extends JFrame {
         dataset2.setValue( "Abonnement" , abonnee);
         dataset2.setValue( "Reservering" , reservering);
         dataset2.setValue("Leeg", leeg);
-        JFreeChart chart2 = ChartFactory.createPieChart("Soort auto's", dataset2, true, true, false);
+        JFreeChart chart2 = ChartFactory.createPieChart("Soort auto's", dataset2, true, true, true);
         jPanel4.setLayout(new java.awt.BorderLayout());
         jPanel4.setVisible(true);
         ChartPanel CP2 = new ChartPanel(chart2);
-        CP2.setPreferredSize(new Dimension(850,350));
+        CP2.setPreferredSize(new Dimension(550,350));
         jPanel4.add(CP2);
         jPanel4.validate();
     }
