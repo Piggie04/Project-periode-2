@@ -47,8 +47,6 @@ public class Simulator {
     int totalParkingPassCar = 0;
     int totalReservationCar = 0;
 
-    int carCounter = 0;
-
     public Simulator() {
         entranceCarQueue = new CarQueue();
         entrancePassQueue = new CarQueue();

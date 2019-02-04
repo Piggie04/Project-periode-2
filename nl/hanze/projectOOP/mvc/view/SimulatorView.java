@@ -47,7 +47,7 @@ public class SimulatorView extends JFrame {
         carParkView = new CarParkView();
 
         Container contentPane = getContentPane();
-        contentPane.add(carParkView, BorderLayout.WEST);
+        contentPane.add(carParkView, BorderLayout.CENTER);
         pack();
         setVisible(true);
 
@@ -118,7 +118,7 @@ public class SimulatorView extends JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(500, 500, Short.MAX_VALUE)
+                        .addGap(850, 850, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,7 +142,7 @@ public class SimulatorView extends JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
                 jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(500, 500, Short.MAX_VALUE)
+                        .addGap(850, 850, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
                 jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,7 +165,7 @@ public class SimulatorView extends JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
                 jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(500, 500, Short.MAX_VALUE)
+                        .addGap(850, 850, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
                 jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
