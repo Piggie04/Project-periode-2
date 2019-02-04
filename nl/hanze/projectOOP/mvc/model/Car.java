@@ -1,4 +1,5 @@
-package nl.hanze.projectOOP.mvc;
+package nl.hanze.projectOOP.mvc.model;
+import nl.hanze.projectOOP.mvc.view.Location;
 import java.awt.*;
 
 public abstract class Car {

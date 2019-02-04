@@ -1,4 +1,5 @@
 package nl.hanze.projectOOP.mvc.controller;
+
 import nl.hanze.projectOOP.mvc.view.SimulatorView;
 import nl.hanze.projectOOP.mvc.model.Car;
 import nl.hanze.projectOOP.mvc.view.Location;
@@ -94,7 +95,7 @@ public class Simulator {
         simulatorView.updateView();
         simulatorView.updateView();
         simulatorView.carCounter(carCounter);
-        int missedCars = missedCars();
+        int missedCars = 0;
         simulatorView.missedCars(missedCars);
     }
 
@@ -151,9 +152,9 @@ public class Simulator {
                 moneyEarnedWeek += (10);
                 break;
             case "nl.hanze.projectOOP.mvc.ReservationCar":
-                moneyEarned += ();
-                moneyEarnedDay += ();
-                moneyEarnedWeek += ();
+                moneyEarned += (5);
+                moneyEarnedDay += (5);
+                moneyEarnedWeek += (5);
         }
     }
 

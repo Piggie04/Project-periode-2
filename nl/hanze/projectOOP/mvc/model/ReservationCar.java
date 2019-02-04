@@ -1,9 +1,9 @@
-package nl.hanze.projectOOP.mvc;
+package nl.hanze.projectOOP.mvc.model;
 
 import java.util.Random;
 import java.awt.*;
 
-public class ReservationCar extends nl.hanze.projectOOP.mvc.Car {
+public class ReservationCar extends nl.hanze.projectOOP.mvc.model.Car {
     private Color COLOR = Color.green;
     private int stayMinutes;
 
