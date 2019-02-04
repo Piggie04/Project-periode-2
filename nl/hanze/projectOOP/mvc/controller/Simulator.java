@@ -213,7 +213,7 @@ public class Simulator {
         simulatorView.removeCarAt(car.getLocation());
         exitCarQueue.addCar(car);
     }
-
+/**
     private void addArrivingCars(int numberOfCars, Car car) {
         // Add the cars to the back of the queue.
         switch (car.getClass().getName()) {
@@ -240,6 +240,7 @@ public class Simulator {
         }
     }
 
+ */
     private void handleEntrance() {
         carsArriving();
         carsEntering(entrancePassQueue);
