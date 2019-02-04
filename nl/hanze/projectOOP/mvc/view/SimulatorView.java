@@ -17,11 +17,10 @@ public class SimulatorView extends JFrame {
     private int numberOfPlaces;
     private int numberOfOpenSpots;
     private Car[][][] cars;
-    
+
     private int normaal = 0;
     private int abonnee = 0;
     private int reservering = 0;
-    private int leeg = 540;
 
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -80,15 +79,15 @@ public class SimulatorView extends JFrame {
         CP1.setPreferredSize(new Dimension(100,100));
         jPanel2.add(CP1);
         jPanel2.validate();
-        
-        leeg = (540 - normaal - abonnee - reservering);
-        
+
+        int leeg = (540 - normaal - abonnee - reservering);
+
         DefaultPieDataset dataset2 = new DefaultPieDataset( );
-        dataset2.setValue( "Normaal" , new Double(normaal) );  
-        dataset2.setValue( "Abonnement" , new Double(abonnee) );   
-        dataset2.setValue( "Reservering" , new Double(reservering) );
-        dataset2.setValue("Leeg", new Double (leeg));
-        JFreeChart chart2 = ChartFactory.createPieChart("Plekken", dataset2, true, true, false);
+        dataset2.setValue( "Normaal" , normaal);
+        dataset2.setValue( "Abonnement" , abonnee);
+        dataset2.setValue( "Reservering" , reservering);
+        dataset2.setValue("Leeg", leeg);
+        JFreeChart chart2 = ChartFactory.createPieChart("Soort auto's", dataset2, true, true, false);
         jPanel4.setLayout(new java.awt.BorderLayout());
         jPanel4.setVisible(true);
         ChartPanel CP2 = new ChartPanel(chart2);
@@ -161,7 +160,7 @@ public class SimulatorView extends JFrame {
         );
 
         tabPanel.addTab("Opbrengst", opbrengst);
-        
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -177,11 +176,11 @@ public class SimulatorView extends JFrame {
         verlies.setLayout(verliesLayout);
         verliesLayout.setHorizontalGroup(
                 verliesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(500, 500, Short.MAX_VALUE)
+                        .addComponent(jPanel4, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
         );
         verliesLayout.setVerticalGroup(
                 verliesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(350, 350, Short.MAX_VALUE)
+                        .addComponent(jPanel4, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
         );
 
         tabPanel.addTab("Soort auto's", verlies);
