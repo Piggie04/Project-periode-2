@@ -1,16 +1,22 @@
-package nl.hanze.projectOOP.mvc;
+package nl.hanze.projectOOP.mvc.controller;
+import nl.hanze.projectOOP.mvc.view.SimulatorView;
+import nl.hanze.projectOOP.mvc.model.Car;
+import nl.hanze.projectOOP.mvc.view.Location;
+import nl.hanze.projectOOP.mvc.model.AdHocCar;
+import nl.hanze.projectOOP.mvc.model.ParkingPassCar;
+import nl.hanze.projectOOP.mvc.model.CarQueue;
 import java.util.Random;
 
 public class Simulator {
 
-    private static final String AD_HOC = "1";
-    private static final String PASS = "2";
-
-
-    private ReservationCar.CarQueue entranceCarQueue;
-    private ReservationCar.CarQueue entrancePassQueue;
-    private ReservationCar.CarQueue paymentCarQueue;
-    private ReservationCar.CarQueue exitCarQueue;
+	private static final String AD_HOC = "1";
+	private static final String PASS = "2";
+	
+	
+	private CarQueue entranceCarQueue;
+    private CarQueue entrancePassQueue;
+    private CarQueue paymentCarQueue;
+    private CarQueue exitCarQueue;
     private SimulatorView simulatorView;
 
     private int day = 0;
@@ -33,10 +39,10 @@ public class Simulator {
     int exitSpeed = 5; // number of cars that can leave per minute
 
     public Simulator() {
-        entranceCarQueue = new ReservationCar.CarQueue();
-        entrancePassQueue = new ReservationCar.CarQueue();
-        paymentCarQueue = new ReservationCar.CarQueue();
-        exitCarQueue = new ReservationCar.CarQueue();
+        entranceCarQueue = new CarQueue();
+        entrancePassQueue = new CarQueue();
+        paymentCarQueue = new CarQueue();
+        exitCarQueue = new CarQueue();
         simulatorView = new SimulatorView(3, 6, 30);
     }
 
@@ -86,6 +92,10 @@ public class Simulator {
         simulatorView.tick();
         // Update the car park view.
         simulatorView.updateView();
+        simulatorView.updateView();
+        simulatorView.carCounter(carCounter);
+        int missedCars = missedCars();
+        simulatorView.missedCars(missedCars);
     }
 
     private void carsArriving() {
@@ -95,7 +105,7 @@ public class Simulator {
         addArrivingCars(numberOfCars, PASS);
     }
 
-    private void carsEntering(ReservationCar.CarQueue queue) {
+    private void carsEntering(CarQueue queue) {
         int i = 0;
         // Remove car from the front of the queue and assign to a parking space.
         while (queue.carsInQueue() > 0 &&
@@ -130,7 +140,7 @@ public class Simulator {
             CarPayment(car.getMinutesStayed(), car);
             carLeavesSpot(car);
             i++;
-        }
+    	}
     }
 
     private void CarPayment(int timeStayed, Car car) {
@@ -153,7 +163,7 @@ public class Simulator {
         while (exitCarQueue.carsInQueue() > 0 && i < exitSpeed) {
             exitCarQueue.removeCar();
             i++;
-        }
+    	}	
     }
 
     private int getNumberOfCars(int weekDay, int weekend) {

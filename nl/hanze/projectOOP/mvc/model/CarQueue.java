@@ -1,4 +1,5 @@
-package nl.hanze.projectOOP.mvc;
+package nl.hanze.projectOOP.mvc.controller;
+import nl.hanze.projectOOP.mvc.model.Car;
 import java.util.LinkedList;
 import java.util.Queue;
 
