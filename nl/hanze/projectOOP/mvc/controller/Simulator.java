@@ -33,6 +33,8 @@ public class Simulator {
     int paymentSpeed = 7; // number of cars that can pay per minute
     int exitSpeed = 5; // number of cars that can leave per minute
 
+    int carCounter = 0;
+
     public Simulator() {
         entranceCarQueue = new CarQueue();
         entrancePassQueue = new CarQueue();
@@ -92,7 +94,10 @@ public class Simulator {
     private void updateViews(){
     	simulatorView.tick();
         // Update the car park view.
-        simulatorView.updateView();	
+        simulatorView.updateView();
+        simulatorView.carCounter(carCounter);
+        int missedCars = missedCars();
+        simulatorView.missedCars(missedCars);
     }
     
     private void carsArriving(){
@@ -113,6 +118,7 @@ public class Simulator {
             simulatorView.setCarAt(freeLocation, car);
             i++;
         }
+        carCounter += i;
     }
     
     private void carsReadyToLeave(){
@@ -147,7 +153,8 @@ public class Simulator {
     	while (exitCarQueue.carsInQueue()>0 && i < exitSpeed){
             exitCarQueue.removeCar();
             i++;
-    	}	
+    	}
+        carCounter -= i;
     }
     
     private int getNumberOfCars(int weekDay, int weekend){
@@ -183,6 +190,15 @@ public class Simulator {
     private void carLeavesSpot(Car car){
     	simulatorView.removeCarAt(car.getLocation());
         exitCarQueue.addCar(car);
+    }
+
+
+    public int missedCars(){
+        int result = 0;
+        if(carCounter > 540){
+            result = carCounter - 540;
+        }
+        return result;
     }
 
 }

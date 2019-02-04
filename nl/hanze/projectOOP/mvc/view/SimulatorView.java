@@ -246,6 +246,14 @@ public class SimulatorView extends JFrame {
 
 
 
+    public void carCounter(int counter) {
+        jTable1.setValueAt(counter, 0, 0);
+    }
+
+    public void missedCars(int counter) {
+        jTable1.setValueAt(counter, 0, 1);
+    }
+
     public void updateView() {
         carParkView.updateView();
     }
