@@ -1,5 +1,4 @@
 package nl.hanze.projectOOP.mvc.view;
-import nl.hanze.projectOOP.mvc.view.SimulatorView;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -9,6 +8,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import nl.hanze.projectOOP.mvc.model.Car;
 import javax.swing.*;
 import java.awt.*;
+import org.jfree.data.general.DefaultPieDataset;
 
 public class SimulatorView extends JFrame {
     private CarParkView carParkView;
@@ -18,10 +18,14 @@ public class SimulatorView extends JFrame {
     private int numberOfOpenSpots;
     private Car[][][] cars;
 
+    private int normaal = 0;
+    private int abonnee = 0;
+    private int reservering = 0;
 
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel lengteQueue;
     private javax.swing.JPanel opbrengst;
     private javax.swing.JPanel parkeergarage;
@@ -75,6 +79,21 @@ public class SimulatorView extends JFrame {
         CP1.setPreferredSize(new Dimension(100,100));
         jPanel2.add(CP1);
         jPanel2.validate();
+
+        int leeg = (540 - normaal - abonnee - reservering);
+
+        DefaultPieDataset dataset2 = new DefaultPieDataset( );
+        dataset2.setValue( "Normaal" , normaal);
+        dataset2.setValue( "Abonnement" , abonnee);
+        dataset2.setValue( "Reservering" , reservering);
+        dataset2.setValue("Leeg", leeg);
+        JFreeChart chart2 = ChartFactory.createPieChart("Soort auto's", dataset2, true, true, false);
+        jPanel4.setLayout(new java.awt.BorderLayout());
+        jPanel4.setVisible(true);
+        ChartPanel CP2 = new ChartPanel(chart2);
+        CP2.setPreferredSize(new Dimension(100,100));
+        jPanel4.add(CP2);
+        jPanel4.validate();
     }
 
     private void initComponents() {
@@ -91,6 +110,7 @@ public class SimulatorView extends JFrame {
         jTable1 = new javax.swing.JTable();
         jSpinner1 = new javax.swing.JSpinner();
         jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel4 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -141,18 +161,29 @@ public class SimulatorView extends JFrame {
 
         tabPanel.addTab("Opbrengst", opbrengst);
 
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(500, 500, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(350, 350, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout verliesLayout = new javax.swing.GroupLayout(verlies);
         verlies.setLayout(verliesLayout);
         verliesLayout.setHorizontalGroup(
                 verliesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(500, 500, Short.MAX_VALUE)
+                        .addComponent(jPanel4, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
         );
         verliesLayout.setVerticalGroup(
                 verliesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(350, 350, Short.MAX_VALUE)
+                        .addComponent(jPanel4, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE)
         );
 
-        tabPanel.addTab("Verlies", verlies);
+        tabPanel.addTab("Soort auto's", verlies);
 
         parkeergarage.setBackground(new java.awt.Color(200, 200, 200));
 
