@@ -28,6 +28,10 @@ public class Simulator {
     private double moneyEarnedDay = 0.00;
     private double moneyEarnedWeek = 0.00;
 
+    private int carsPassed = 0;
+    int carCounter = 0;
+
+
     private int tickPause = 100;
 
     int weekDayArrivals = 100; // average number of arriving cars per hour
@@ -95,7 +99,7 @@ public class Simulator {
         simulatorView.updateView();
         simulatorView.updateView();
         simulatorView.carCounter(carCounter);
-        int missedCars = 0;
+        int missedCars = carsPassed;
         simulatorView.missedCars(missedCars);
     }
 
