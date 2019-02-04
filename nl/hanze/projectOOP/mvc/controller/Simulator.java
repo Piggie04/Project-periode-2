@@ -65,6 +65,7 @@ public class Simulator {
         advanceTime();
         handleExit();
         updateViews();
+        simulatorView.getCars(totalAdHocCar, totalParkingPassCar, totalReservationCar);
         // Pause.
         try {
             Thread.sleep(tickPause);

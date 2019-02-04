@@ -4,7 +4,6 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
-import nl.hanze.projectOOP.mvc.controller.Simulator;
 
 import nl.hanze.projectOOP.mvc.model.Car;
 import javax.swing.*;
@@ -18,10 +17,6 @@ public class SimulatorView extends JFrame {
     private int numberOfPlaces;
     private int numberOfOpenSpots;
     private Car[][][] cars;
-
-    private int totalAdHocCar;
-    private int totalParkingPassCar;
-    private int totalReservationCar;
 
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -38,6 +33,10 @@ public class SimulatorView extends JFrame {
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JToggleButton jToggleButton1;
 
+    private int adHocCar = 0;
+    private int parkingCar = 0;
+    private int reservationCar = 0;
+
 
     public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
 
@@ -53,9 +52,11 @@ public class SimulatorView extends JFrame {
         contentPane.add(carParkView, BorderLayout.CENTER);
         pack();
         setVisible(true);
-
-        updateView();
         initComponents();
+        updateView();
+    }
+
+    private void updateViewer(){
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         dataset.setValue(80, "Normaal", "Bezoekers");
         dataset.setValue(10, "Abonnees", "Abonnementen");
@@ -83,12 +84,13 @@ public class SimulatorView extends JFrame {
         jPanel2.add(CP1);
         jPanel2.validate();
 
-        int empty = (540 - totalAdHocCar - totalParkingPassCar - totalReservationCar);
+
+        int empty = (540 - adHocCar - parkingCar - reservationCar);
 
         DefaultPieDataset dataset2 = new DefaultPieDataset( );
-        dataset2.setValue( "Normaal" , totalAdHocCar);
-        dataset2.setValue( "Abonnement" , totalParkingPassCar);
-        dataset2.setValue( "Reservering" , totalReservationCar);
+        dataset2.setValue( "Normaal" , adHocCar);
+        dataset2.setValue( "Abonnement" , parkingCar);
+        dataset2.setValue( "Reservering" , reservationCar);
         dataset2.setValue("Leeg", empty);
         JFreeChart chart2 = ChartFactory.createPieChart("Soort auto's", dataset2, true, true, true);
         jPanel4.setLayout(new java.awt.BorderLayout());
@@ -294,6 +296,7 @@ public class SimulatorView extends JFrame {
 
     public void updateView() {
         carParkView.updateView();
+        updateViewer();
     }
 
     public int getNumberOfFloors() {
@@ -310,6 +313,13 @@ public class SimulatorView extends JFrame {
 
     public int getNumberOfOpenSpots(){
         return numberOfOpenSpots;
+    }
+
+    public void getCars(int totalAdHocCar, int totalParkingPassCar, int totalReservationCar)
+    {
+        this.adHocCar = totalAdHocCar;
+        this.parkingCar = totalParkingPassCar;
+        this.reservationCar  = totalReservationCar;
     }
 
     public Car getCarAt(Location location) {
