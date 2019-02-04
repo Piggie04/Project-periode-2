@@ -5,6 +5,7 @@ public abstract class Car {
 
     private Location location;
     private int minutesLeft;
+    private int minutesStayed;
     private boolean isPaying;
     private boolean hasToPay;
 
@@ -30,6 +31,9 @@ public abstract class Car {
     public void setMinutesLeft(int minutesLeft) {
         this.minutesLeft = minutesLeft;
     }
+
+    public int getMinutesStayed(){
+        return minutesStayed;}
     
     public boolean getIsPaying() {
         return isPaying;
