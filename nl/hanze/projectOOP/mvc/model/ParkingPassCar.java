@@ -1,8 +1,9 @@
 package nl.hanze.projectOOP.mvc.model;
+
 import java.util.Random;
 import java.awt.*;
 
-public class ParkingPassCar extends Car {
+public class ParkingPassCar extends nl.hanze.projectOOP.mvc.model.Car {
 	private static final Color COLOR=Color.blue;
 	
     public ParkingPassCar() {
