@@ -60,7 +60,7 @@ public class SimulatorView extends JFrame {
         jPanel1.setLayout(new java.awt.BorderLayout());
         jPanel1.setVisible(true);
         ChartPanel CP = new ChartPanel(chart);
-        CP.setPreferredSize(new Dimension(100,100));
+        CP.setPreferredSize(new Dimension(850,350));
         jPanel1.add(CP);
         jPanel1.validate();
 
@@ -76,7 +76,7 @@ public class SimulatorView extends JFrame {
         jPanel2.setLayout(new java.awt.BorderLayout());
         jPanel2.setVisible(true);
         ChartPanel CP1 = new ChartPanel(chart1);
-        CP1.setPreferredSize(new Dimension(100,100));
+        CP1.setPreferredSize(new Dimension(850,350));
         jPanel2.add(CP1);
         jPanel2.validate();
 
@@ -91,7 +91,7 @@ public class SimulatorView extends JFrame {
         jPanel4.setLayout(new java.awt.BorderLayout());
         jPanel4.setVisible(true);
         ChartPanel CP2 = new ChartPanel(chart2);
-        CP2.setPreferredSize(new Dimension(100,100));
+        CP2.setPreferredSize(new Dimension(850,350));
         jPanel4.add(CP2);
         jPanel4.validate();
     }
