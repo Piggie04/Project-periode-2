@@ -43,6 +43,12 @@ public class Simulator {
     int paymentSpeed = 7; // number of cars that can pay per minute
     int exitSpeed = 5; // number of cars that can leave per minute
 
+    int totalAdHocCar = 0;
+    int totalParkingPassCar = 0;
+    int totalReservationCar = 0;
+
+    int carCounter = 0;
+
     public Simulator() {
         entranceCarQueue = new CarQueue();
         entrancePassQueue = new CarQueue();
@@ -121,6 +127,7 @@ public class Simulator {
             simulatorView.setCarAt(freeLocation, car);
             i++;
         }
+        carCounter +=i;
     }
 
     private void carsReadyToLeave() {
@@ -168,7 +175,8 @@ public class Simulator {
         while (exitCarQueue.carsInQueue() > 0 && i < exitSpeed) {
             exitCarQueue.removeCar();
             i++;
-    	}	
+    	}
+        carCounter -=i;
     }
 
     private int getNumberOfCars(int weekDay, int weekend) {
