@@ -32,8 +32,10 @@ public class Simulator {
     int totalReservationCar = 0;
     int totalAdHocCar = 0;
 
-    int carsPassed = 0;
+    double[] winst = {0.00,0.00,0.00,0.00,0.00,0.00,0.00};
 
+    int carsPassed = 0;
+    int number = 0;
 
     double moneyEarned = 0.00;
     double moneyEarnedDay = 0.00;
@@ -45,10 +47,10 @@ public class Simulator {
 
     String[] daysoftheWeek = {"Maandag","Dinsdag","Woensdag","Donderdag","Vrijdag","Zaterdag","Zondag"};
 
-    private int weekDayArrivals = 100; // average number of arriving cars per hour
-    private int weekendArrivals = 150; // average number of arriving cars per hour
-    private int weekDayPassArrivals = 30 ; // average number of arriving cars per hour
-    private int weekendPassArrivals = 10;// average number of arriving cars per hour
+    private int weekDayArrivals = 500; // average number of arriving cars per hour
+    private int weekendArrivals = 300; // average number of arriving cars per hour
+    private int weekDayPassArrivals = 50 ; // average number of arriving cars per hour
+    private int weekendPassArrivals = 5;// average number of arriving cars per hour
     private int weekDayReservationArrival = 50;
     private int weekendReservationArrival = 150;
 
@@ -65,7 +67,7 @@ public class Simulator {
         simulatorView = new SimulatorView(3, 6, 30);
     }
     public void run(){
-        for(int i = 0; i<100000; i++){
+        for(int i = 0; i<10000; i++){
             tick();
         }
     }
@@ -80,11 +82,14 @@ public class Simulator {
         }
     }
 */
+
     private void tick() {
         advanceTime();
         handleExit();
         updateViews();
         simulatorView.getCars(totalAdHocCar, totalParkingPassCar, totalReservationCar);
+        getCarsInQueue();
+        winstPerDag();
         // Pause.
         try {
             Thread.sleep(tickPause);
@@ -270,9 +275,42 @@ public class Simulator {
 
     }
 
+    public void getCarsInQueue(){
+        number = entranceCarQueue.carsInQueue();
+
+    }
+
+    public void winstPerDag(){
+        switch (this.day) {
+            case 0:
+                winst[0] = 50.00;
+                break;
+            case 1:
+                winst[1] = moneyEarnedDay;
+                break;
+            case 2:
+                winst[2] = moneyEarnedDay;
+                break;
+            case 3:
+                winst[3] = moneyEarnedDay;
+                break;
+            case 4:
+                winst[4] = moneyEarnedDay;
+                break;
+            case 5:
+                winst[5] = moneyEarnedDay;
+                break;
+            case 6:
+                winst[6] = moneyEarnedDay;
+                break;
+        }
+
+        simulatorView.getWinstPerDag(winst);
+
+    }
+
     public double stayLeave(boolean carArriving) {
         double drukte = 0;
-        double rand = Math.random();
         if (carArriving) {
             switch (hour) {
                 case 0:
