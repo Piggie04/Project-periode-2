@@ -1,6 +1,6 @@
-package nl.hanze.projectOOP.mvc;
+package nl.hanze.projectOOP.mvc.model;
 import java.awt.*;
-
+import nl.hanze.projectOOP.mvc.model.Location;
 public abstract class Car {
 
     private Location location;
@@ -8,9 +8,6 @@ public abstract class Car {
     private int minutesStayed;
     private boolean isPaying;
     private boolean hasToPay;
-    private String subscription;
-    private int bill;
-
     /**
      * Constructor for objects of class Car
      */
@@ -30,14 +27,6 @@ public abstract class Car {
         return minutesLeft;
     }
 
-    public void setBill(int b) {
-        this.bill = b;
-    }
-
-    public int getBill() {
-        return bill;
-    }
-
     public void setMinutesLeft(int minutesLeft) {
         this.minutesLeft = minutesLeft;
     }
@@ -45,14 +34,6 @@ public abstract class Car {
     public int getMinutesStayed(){
         return minutesStayed;}
 
-
-    public String getSubscription() {
-        return subscription;
-    }
-
-    public void setSubscription(String subs) {
-        this.subscription = subs;
-    }
 
     public boolean getIsPaying() {
         return isPaying;

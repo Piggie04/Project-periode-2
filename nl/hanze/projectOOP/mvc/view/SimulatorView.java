@@ -1,4 +1,5 @@
 package nl.hanze.projectOOP.mvc.view;
+import nl.hanze.projectOOP.mvc.model.Location;
 import nl.hanze.projectOOP.mvc.view.SimulatorView;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -306,20 +307,50 @@ public class SimulatorView extends JFrame {
         return car;
     }
 
-    public Location getFirstFreeLocation() {
-        for (int floor = 0; floor < getNumberOfFloors(); floor++) {
-            for (int row = 0; row < getNumberOfRows(); row++) {
-                for (int place = 0; place < getNumberOfPlaces(); place++) {
-                    Location location = new Location(floor, row, place);
-                    if (getCarAt(location) == null) {
-                        return location;
+    public Location getSpecifiedCarTypeLocation (Car car)
+    {
+        Location freeLocation = null;
+        switch (car.getClass().getName())
+        {
+            case "Parkeersimulator.ParkingPassCar":
+                freeLocation = getSpecifiedLocation(0, 0, 0, 1, 0, 30, 0);
+                break;
+            case "Parkeersimulator.ReservationCar":
+                freeLocation = getSpecifiedLocation(0, getNumberOfFloors()-1, 2, getNumberOfRows()-1, 0, getNumberOfPlaces()-1, 0);
+                break;
+            case "Parkeersimulator.AdHocCar":
+                freeLocation = getSpecifiedLocation(0, getNumberOfFloors()-1, 2, getNumberOfRows()-1, 0, getNumberOfPlaces()-1, 0);
+                break;
+        }
+
+        return freeLocation;
+    }
+    public Location getSpecifiedLocation(int floorStart, int floorEnd, int rowStart, int rowEnd, int placeStart, int placeEnd, int SpecificFloor)
+    {
+        for (int floor = floorStart; floor < floorEnd + 1; floor++) {
+            if (SpecificFloor == floor || SpecificFloor < 0){
+                for (int row = rowStart; row < rowEnd + 1; row++) {
+                    for (int place = placeStart; place < placeEnd + 1; place++) {
+                        Location location = new Location(floor, row, place);
+                        if (getCarAt(location) == null) {
+                            return location;
+                        }
+                    }
+                }
+            }
+            else{
+                for (int row = 0; row < getNumberOfRows(); row++){
+                    for (int place = 0; place < getNumberOfPlaces(); place++){
+                        Location location = new Location(floor, row, place);
+                        if (getCarAt(location) == null) {
+                            return location;
+                        }
                     }
                 }
             }
         }
         return null;
     }
-
     public Car getFirstLeavingCar() {
         for (int floor = 0; floor < getNumberOfFloors(); floor++) {
             for (int row = 0; row < getNumberOfRows(); row++) {
