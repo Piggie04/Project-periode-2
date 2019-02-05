@@ -19,7 +19,7 @@ public class Simulator implements ActionListener {
 	private static final String PASS = "2";
 	private static final String RESS = "3";
 
-    private boolean running = false;
+    private boolean running = true;
 
 	private CarQueue entranceCarQueue;
     private CarQueue entrancePassQueue;
@@ -69,28 +69,20 @@ public class Simulator implements ActionListener {
         paymentCarQueue = new CarQueue();
         exitCarQueue = new CarQueue();
         simulatorView = new SimulatorView(3, 6, 30);
+        simulatorView.jButton1.addActionListener(this);
+        simulatorView.jButton2.addActionListener(this);
     }
     public void run() {
-        for(int i = 0; i<10000; i++){
-            tick();
+        tick();
+        while(running){
+        tick();
         }
     }
 
-    public  void actionPerformed(ActionEvent event) {
-        if (event.getSource() == simulatorView.jButton1) { runSimulator();}
+    public void actionPerformed(ActionEvent event) {
+        if (event.getSource() == simulatorView.jButton1) { running = true;}
 
-        if (event.getSource() == simulatorView.jButton2) { stopSimulator(); }
-    }
-
-    public void runSimulator(){
-        running = true;
-        System.out.println("testing");
-        while (running){
-            tick();
-        }
-    }
-    public void stopSimulator(){
-        running = false;
+        if (event.getSource() == simulatorView.jButton2) { running = false; }
     }
 
     private void tick() {
@@ -227,9 +219,9 @@ public class Simulator implements ActionListener {
     private void CarPayment(int timeStayed, String types) {
         switch (types) {
             case PASS:
-                moneyEarned += (40.00);
-                moneyEarnedDay += (40.00);
-                moneyEarnedWeek += (40.00);
+                moneyEarned += (2.00);
+                moneyEarnedDay += (2.00);
+                moneyEarnedWeek += (2.00);
                 totalParkingPassCar--;
                 break;
             case RESS:
@@ -243,6 +235,7 @@ public class Simulator implements ActionListener {
                 moneyEarnedDay += timeStayed/60 * priceCarparking;
                 moneyEarnedWeek += timeStayed/60 * priceCarparking;
                 totalAdHocCar--;
+                break;
         }
     }
 

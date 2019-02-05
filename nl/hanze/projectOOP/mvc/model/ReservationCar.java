@@ -11,7 +11,7 @@ public class ReservationCar extends nl.hanze.projectOOP.mvc.model.Car {
         Random random = new Random();
         stayMinutes = (int) (15 + random.nextFloat() * 3 + (hourModifier * 60) );
         this.setMinutesLeft(stayMinutes);
-        this.setHasToPay(false);
+        this.setHasToPay(true);
     }
 
     public Color getColor() {

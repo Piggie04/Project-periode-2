@@ -58,8 +58,9 @@ public class SimulatorView extends JFrame {
         Container contentPane = getContentPane();
         contentPane.add(carParkView, BorderLayout.CENTER);
         pack();
-        setVisible(true);
+        setVisible(false);
         initComponents();
+        setVisible(true);
     }
 
     private void updateViewer(){
@@ -377,7 +378,6 @@ public class SimulatorView extends JFrame {
         minuut = Integer.toString(minute);
         dagen = dag + " " + uur + ":" + minuut;
         jLabel2.setText(dagen);
-        System.out.println(dagen);
     }
 
     public int getNumberOfFloors() {

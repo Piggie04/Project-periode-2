@@ -11,7 +11,7 @@ public class ParkingPassCar extends Car {
     	Random random = new Random();
     	int stayMinutes = (int) (15 + random.nextFloat() * 3 + (60 * hourModifier));
         this.setMinutesLeft(stayMinutes);
-        this.setHasToPay(false);
+        this.setHasToPay(true);
     }
     
     public Color getColor(){
