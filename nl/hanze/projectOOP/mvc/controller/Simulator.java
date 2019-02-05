@@ -49,7 +49,7 @@ public class Simulator implements ActionListener {
 
     int carCounter = 0;
 
-    private int tickPause = 1;
+    private int tickPause = 50;
 
     String[] daysoftheWeek = {"Maandag","Dinsdag","Woensdag","Donderdag","Vrijdag","Zaterdag","Zondag"};
 

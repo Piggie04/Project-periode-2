@@ -38,6 +38,10 @@ public class SimulatorView extends JFrame {
     public javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
 
+    DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
+    DefaultPieDataset dataset2 = new DefaultPieDataset( );
+    DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
     private int adHocCar = 0;
     private int parkingCar = 0;
     private int reservationCar = 0;
@@ -61,25 +65,20 @@ public class SimulatorView extends JFrame {
         setVisible(false);
         initComponents();
         setVisible(true);
-    }
-
-    private void updateViewer(){
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.setValue(number, "Mensen in de rij", "Bezoekers");
+        dataset.setValue(0, "Mensen in de rij", "Bezoekers");
         JFreeChart chart = ChartFactory.createBarChart("Lengte Queue", "Soort auto", "Aantal", dataset, PlotOrientation.VERTICAL, true, true, false);
         jPanel1.setLayout(new java.awt.BorderLayout());
         ChartPanel CP = new ChartPanel(chart);
         CP.setPreferredSize(new Dimension(550,350));
         jPanel1.add(CP);
 
-        DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
-        dataset1.setValue(winst[0], "Dag", "Maandag");
-        dataset1.setValue(winst[1], "Dag", "Dinsdag");
-        dataset1.setValue(winst[2], "Dag", "Woensdag");
-        dataset1.setValue(winst[3], "Dag", "Donderdag");
-        dataset1.setValue(winst[4], "Dag", "Vrijdag");
-        dataset1.setValue(winst[5], "Dag", "Zaterdag");
-        dataset1.setValue(winst[6], "Dag", "Zondag");
+        dataset1.setValue(0, "Dag", "Maandag");
+        dataset1.setValue(0, "Dag", "Dinsdag");
+        dataset1.setValue(0, "Dag", "Woensdag");
+        dataset1.setValue(0, "Dag", "Donderdag");
+        dataset1.setValue(0, "Dag", "Vrijdag");
+        dataset1.setValue(0, "Dag", "Zaterdag");
+        dataset1.setValue(0, "Dag", "Zondag");
         JFreeChart chart1 = ChartFactory.createLineChart("Opbrengst", "Dag", "Aantal", dataset1, PlotOrientation.VERTICAL, true, true, true);
         jPanel2.setLayout(new java.awt.BorderLayout());
         ChartPanel CP1 = new ChartPanel(chart1);
@@ -89,16 +88,39 @@ public class SimulatorView extends JFrame {
 
         int empty = (540 - adHocCar - parkingCar - reservationCar);
 
-        DefaultPieDataset dataset2 = new DefaultPieDataset( );
-        dataset2.setValue( "Normaal" , adHocCar);
-        dataset2.setValue( "Abonnement" , parkingCar);
-        dataset2.setValue( "Reservering" , reservationCar);
+        dataset2.setValue( "Normaal" , 0);
+        dataset2.setValue( "Abonnement" , 0);
+        dataset2.setValue( "Reservering" , 0);
         dataset2.setValue("Leeg", empty);
         JFreeChart chart2 = ChartFactory.createPieChart("Soort auto's", dataset2, true, true, true);
         jPanel4.setLayout(new java.awt.BorderLayout());
         ChartPanel CP2 = new ChartPanel(chart2);
         CP2.setPreferredSize(new Dimension(550,350));
         jPanel4.add(CP2);
+
+        jPanel1.setVisible(true);
+        jPanel2.setVisible(true);
+        jPanel4.setVisible(true);
+    }
+
+    private void updateViewer(){
+        dataset.setValue(number, "Mensen in de rij", "Bezoekers");
+
+        dataset1.setValue(winst[0], "Dag", "Maandag");
+        dataset1.setValue(winst[1], "Dag", "Dinsdag");
+        dataset1.setValue(winst[2], "Dag", "Woensdag");
+        dataset1.setValue(winst[3], "Dag", "Donderdag");
+        dataset1.setValue(winst[4], "Dag", "Vrijdag");
+        dataset1.setValue(winst[5], "Dag", "Zaterdag");
+        dataset1.setValue(winst[6], "Dag", "Zondag");
+
+
+        int empty = (540 - adHocCar - parkingCar - reservationCar);
+
+        dataset2.setValue( "Normaal" , adHocCar);
+        dataset2.setValue( "Abonnement" , parkingCar);
+        dataset2.setValue( "Reservering" , reservationCar);
+        dataset2.setValue("Leeg", empty);
 
         jPanel1.setVisible(true);
         jPanel2.setVisible(true);
