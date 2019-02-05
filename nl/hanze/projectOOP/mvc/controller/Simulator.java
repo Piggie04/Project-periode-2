@@ -7,15 +7,20 @@ import nl.hanze.projectOOP.mvc.model.Car;
 import nl.hanze.projectOOP.mvc.model.AdHocCar;
 import nl.hanze.projectOOP.mvc.model.ReservationCar;
 import nl.hanze.projectOOP.mvc.model.CarQueue;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Random;
 
-public class Simulator {
+public class Simulator implements ActionListener {
 
 	private static final String AD_HOC = "1";
 	private static final String PASS = "2";
 	private static final String RESS = "3";
 
-	
+    private boolean running = false;
+
 	private CarQueue entranceCarQueue;
     private CarQueue entrancePassQueue;
     private CarQueue paymentCarQueue;
@@ -36,7 +41,6 @@ public class Simulator {
     double[] winst = {0.00,0.00,0.00,0.00,0.00,0.00,0.00};
 
     int carsPassed = 0;
-    int number = 0;
 
     double moneyEarned = 0.00;
     double moneyEarnedDay = 0.00;
@@ -66,22 +70,28 @@ public class Simulator {
         exitCarQueue = new CarQueue();
         simulatorView = new SimulatorView(3, 6, 30);
     }
-    public void run(){
+    public void run() {
         for(int i = 0; i<10000; i++){
             tick();
         }
     }
-    /*
-    public void playPause() {
-        isRunning = (!isRunning) ? true : false;
 
-        simulatorView.updatePlayPauseButton(isRunning);
+    public  void actionPerformed(ActionEvent event) {
+        if (event.getSource() == simulatorView.jButton1) { runSimulator();}
 
-        while(isRunning) {
+        if (event.getSource() == simulatorView.jButton2) { stopSimulator(); }
+    }
+
+    public void runSimulator(){
+        running = true;
+        System.out.println("testing");
+        while (running){
             tick();
         }
     }
-*/
+    public void stopSimulator(){
+        running = false;
+    }
 
     private void tick() {
         advanceTime();
@@ -106,6 +116,7 @@ public class Simulator {
             minute -= 60;
             hour++;
             moneyEarned = 0;
+
         }
         while (hour > 23) {
             hour -= 24;
@@ -190,7 +201,15 @@ public class Simulator {
         int i=0;
         while (paymentCarQueue.carsInQueue()>0 && i < paymentSpeed){
             Car car = paymentCarQueue.removeCar();
-            CarPayment(car.getMinutesStayed(),car);
+            if(car.getColor().equals(Color.blue)) {
+                CarPayment(car.getMinutesStayed(), PASS);
+            }
+            if(car.getColor().equals(Color.red)) {
+                CarPayment(car.getMinutesStayed(), AD_HOC);
+            }
+            if(car.getColor().equals(Color.green)) {
+                CarPayment(car.getMinutesStayed(), RESS);
+            }
             carLeavesSpot(car);
             i++;
         }
@@ -205,8 +224,8 @@ public class Simulator {
             i++;
         }
     }
-    private void CarPayment(int timeStayed, Car car) {
-        switch (car.getClass().getName()) {
+    private void CarPayment(int timeStayed, String types) {
+        switch (types) {
             case PASS:
                 moneyEarned += (40.00);
                 moneyEarnedDay += (40.00);
@@ -271,14 +290,14 @@ public class Simulator {
         }
 
         public void getCarsInQueue () {
-            number = entranceCarQueue.carsInQueue();
+            simulatorView.number = entranceCarQueue.carsInQueue();
 
         }
 
         public void winstPerDag () {
             switch (this.day) {
                 case 0:
-                    winst[0] = 50.00;
+                    winst[0] = moneyEarnedDay;
                     break;
                 case 1:
                     winst[1] = moneyEarnedDay;

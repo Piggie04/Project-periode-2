@@ -34,13 +34,13 @@ public class SimulatorView extends JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    public javax.swing.JButton jButton1;
+    public javax.swing.JButton jButton2;
 
     private int adHocCar = 0;
     private int parkingCar = 0;
     private int reservationCar = 0;
-    private int number = 0;
+    public int number;
     private double[] winst = {0.00,0.00,0.00,0.00,0.00,0.00,0.00};
 
     public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
@@ -58,7 +58,6 @@ public class SimulatorView extends JFrame {
         pack();
         setVisible(true);
         initComponents();
-        updateView();
     }
 
     private void updateViewer(){
@@ -353,7 +352,6 @@ public class SimulatorView extends JFrame {
     }
 
     public int getNumberOfOpenSpots(){
-        System.out.println(numberOfOpenSpots);
         return numberOfOpenSpots;
     }
 
@@ -362,10 +360,6 @@ public class SimulatorView extends JFrame {
         this.adHocCar = totalAdHocCar;
         this.parkingCar = totalParkingPassCar;
         this.reservationCar  = totalReservationCar;
-    }
-    public void carInQueue(int number)
-    {
-        this.number = number;
     }
     public void getWinstPerDag(double[] winst){
         for(int i = 0; i < 7; i++){

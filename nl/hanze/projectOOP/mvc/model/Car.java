@@ -52,6 +52,7 @@ public abstract class Car {
     }
 
     public void tick() {
+        minutesStayed++;
         minutesLeft--;
     }
 
