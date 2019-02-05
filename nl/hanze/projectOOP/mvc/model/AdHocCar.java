@@ -5,9 +5,9 @@ import java.awt.*;
 public class AdHocCar extends nl.hanze.projectOOP.mvc.model.Car {
     private static final Color COLOR=Color.red;
 
-    public AdHocCar(double hourCrowds) {
+    public AdHocCar(double hourModifier) {
         Random random = new Random();
-        int stayMinutes = (int) (15 + random.nextFloat() * 3 * 60 + (hourCrowds * 60) );
+        int stayMinutes = (int) (15 + random.nextFloat() * 3 + (hourModifier * 60));
         this.setMinutesLeft(stayMinutes);
         this.setHasToPay(true);
     }

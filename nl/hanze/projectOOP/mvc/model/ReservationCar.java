@@ -4,12 +4,12 @@ import java.util.Random;
 import java.awt.*;
 
 public class ReservationCar extends nl.hanze.projectOOP.mvc.model.Car {
-    private Color COLOR = Color.green;
+    private static final Color COLOR = Color.green;
     private int stayMinutes;
 
     public ReservationCar(double hourModifier) {
         Random random = new Random();
-        stayMinutes = (int) (15 + random.nextFloat() * 3 * 60 + (hourModifier * 60));
+        stayMinutes = (int) (15 + random.nextFloat() * 3 + (hourModifier * 60) );
         this.setMinutesLeft(stayMinutes);
         this.setHasToPay(false);
     }
@@ -22,7 +22,6 @@ public class ReservationCar extends nl.hanze.projectOOP.mvc.model.Car {
     public void tick() {
         this.setMinutesLeft(this.getMinutesLeft() - 1);
         if ((stayMinutes - this.getMinutesLeft()) > 10) {
-            COLOR = Color.decode("#28bf29");
         }
     }
 }

@@ -8,13 +8,15 @@ public class CarQueue {
 
     public boolean addCar(Car car) {
         return queue.add(car);
+
     }
 
     public Car removeCar() {
         return queue.poll();
     }
 
-    public int carsInQueue(){
+    public int carsInQueue() {
         return queue.size();
     }
+
 }

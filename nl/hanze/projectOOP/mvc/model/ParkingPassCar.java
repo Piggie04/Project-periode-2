@@ -7,9 +7,9 @@ import java.awt.*;
 public class ParkingPassCar extends Car {
 	private static final Color COLOR=Color.blue;
 	
-    public ParkingPassCar(double hourCrowd) {
+    public ParkingPassCar(double hourModifier) {
     	Random random = new Random();
-    	int stayMinutes = (int) (15 + random.nextFloat() * 3 * 60 + (hourCrowd * 60));
+    	int stayMinutes = (int) (15 + random.nextFloat() * 3 + (60 * hourModifier));
         this.setMinutesLeft(stayMinutes);
         this.setHasToPay(false);
     }
