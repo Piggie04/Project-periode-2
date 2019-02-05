@@ -45,10 +45,11 @@ public class Simulator implements ActionListener {
     double moneyEarned = 0.00;
     double moneyEarnedDay = 0.00;
     double moneyEarnedWeek = 0.00;
+    double totalEarned = 0.00;
 
     int carCounter = 0;
 
-    private int tickPause = 100;
+    private int tickPause = 1;
 
     String[] daysoftheWeek = {"Maandag","Dinsdag","Woensdag","Donderdag","Vrijdag","Zaterdag","Zondag"};
 
@@ -107,8 +108,8 @@ public class Simulator implements ActionListener {
         while (minute > 59) {
             minute -= 60;
             hour++;
+            totalEarned += moneyEarned;
             moneyEarned = 0;
-
         }
         while (hour > 23) {
             hour -= 24;
@@ -148,6 +149,8 @@ public class Simulator implements ActionListener {
         //update the graph
         simulatorView.carCounter(carCounter);
         simulatorView.missedCars(carsPassed);
+        simulatorView.opbrengst(totalEarned);
+        simulatorView.missedOpbrengst(carsPassed);
     }
 
     private void carsArriving(){
@@ -447,39 +450,39 @@ public class Simulator implements ActionListener {
                         drukte = Math.random() * 1.2 + 0.8;
                         break;
                     case 17:
-                        if (daysoftheWeek[day].equals("Thursday")) {
+                        if (daysoftheWeek[day].equals("Donderdag")) {
                             drukte = Math.random() * 1.7 + 0.8;
                         } else {
                             drukte = Math.random() * 1.4 + 0.7;
                         }
                         break;
                     case 18:
-                        if (daysoftheWeek[day].equals("Thursday")) {
+                        if (daysoftheWeek[day].equals("Donderdag")) {
                             drukte = Math.random() * 2.0 + 1.5;
                         } else {
                             drukte = Math.random() * 1.5 + 0.9;
                         }
                         break;
                     case 19:
-                        if (daysoftheWeek[day].equals("Thursday")) {
+                        if (daysoftheWeek[day].equals("Donderdag")) {
                             drukte = Math.random() * 1.7 + 1.3;
                         } else {
                             drukte = Math.random() * 1.5 + 0.7;
                         }
                         break;
                     case 20:
-                        if (daysoftheWeek[day].equals("Thursday")) {
+                        if (daysoftheWeek[day].equals("Donderdag")) {
                             drukte = Math.random() * 1.9 + 1.2;
-                        } else if (daysoftheWeek[day].equals("Friday")) {
+                        } else if (daysoftheWeek[day].equals("Vrijdag")) {
                             drukte = Math.random() * 2.1 + 1.5;
                         } else {
                             drukte = Math.random() * 1.3 + 0.7;
                         }
                         break;
                     case 21:
-                        if (daysoftheWeek[day].equals("Thursday")) {
+                        if (daysoftheWeek[day].equals("Donderdag")) {
                             drukte = Math.random() * 1.5 + 1.1;
-                        } else if (daysoftheWeek[day].equals("Friday")) {
+                        } else if (daysoftheWeek[day].equals("Vrijdag")) {
                             drukte = Math.random() * 1.5 + 1;
                         } else {
                             drukte = Math.random() * 0.9 + 0.6;

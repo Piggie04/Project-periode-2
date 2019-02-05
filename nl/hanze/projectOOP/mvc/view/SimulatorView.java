@@ -72,7 +72,6 @@ public class SimulatorView extends JFrame {
         ChartPanel CP = new ChartPanel(chart);
         CP.setPreferredSize(new Dimension(550,350));
         jPanel1.add(CP);
-        jPanel1.validate();
 
         DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
         dataset1.setValue(winst[0], "Dag", "Maandag");
@@ -88,7 +87,6 @@ public class SimulatorView extends JFrame {
         ChartPanel CP1 = new ChartPanel(chart1);
         CP1.setPreferredSize(new Dimension(550,350));
         jPanel2.add(CP1);
-        jPanel2.validate();
 
 
         int empty = (540 - adHocCar - parkingCar - reservationCar);
@@ -104,7 +102,6 @@ public class SimulatorView extends JFrame {
         ChartPanel CP2 = new ChartPanel(chart2);
         CP2.setPreferredSize(new Dimension(550,350));
         jPanel4.add(CP2);
-        jPanel4.validate();
     }
 
     private void initComponents() {
@@ -340,6 +337,16 @@ public class SimulatorView extends JFrame {
 
     public void missedCars(int counter) {
         jTable1.setValueAt(counter, 0, 1);
+    }
+
+    public void opbrengst(double counter) {
+        counter = Math.round(counter);
+        jTable1.setValueAt(counter,0,3);
+    }
+    public void missedOpbrengst(int auto) {
+        double counter = auto * 3;
+        counter = Math.round(counter);
+        jTable1.setValueAt(counter, 0,2);
     }
 
     public void updateView() {
