@@ -68,7 +68,6 @@ public class SimulatorView extends JFrame {
         dataset.setValue(number, "Mensen in de rij", "Bezoekers");
         JFreeChart chart = ChartFactory.createBarChart("Lengte Queue", "Soort auto", "Aantal", dataset, PlotOrientation.VERTICAL, true, true, false);
         jPanel1.setLayout(new java.awt.BorderLayout());
-        jPanel1.setVisible(true);
         ChartPanel CP = new ChartPanel(chart);
         CP.setPreferredSize(new Dimension(550,350));
         jPanel1.add(CP);
@@ -83,7 +82,6 @@ public class SimulatorView extends JFrame {
         dataset1.setValue(winst[6], "Dag", "Zondag");
         JFreeChart chart1 = ChartFactory.createLineChart("Opbrengst", "Dag", "Aantal", dataset1, PlotOrientation.VERTICAL, true, true, true);
         jPanel2.setLayout(new java.awt.BorderLayout());
-        jPanel2.setVisible(true);
         ChartPanel CP1 = new ChartPanel(chart1);
         CP1.setPreferredSize(new Dimension(550,350));
         jPanel2.add(CP1);
@@ -98,10 +96,13 @@ public class SimulatorView extends JFrame {
         dataset2.setValue("Leeg", empty);
         JFreeChart chart2 = ChartFactory.createPieChart("Soort auto's", dataset2, true, true, true);
         jPanel4.setLayout(new java.awt.BorderLayout());
-        jPanel4.setVisible(true);
         ChartPanel CP2 = new ChartPanel(chart2);
         CP2.setPreferredSize(new Dimension(550,350));
         jPanel4.add(CP2);
+
+        jPanel1.setVisible(true);
+        jPanel2.setVisible(true);
+        jPanel4.setVisible(true);
     }
 
     private void initComponents() {
