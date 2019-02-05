@@ -14,7 +14,7 @@ public class Simulator {
 	private static final String AD_HOC = "1";
 	private static final String PASS = "2";
 	private static final String RESS = "3";
-	
+
 	
 	private CarQueue entranceCarQueue;
     private CarQueue entrancePassQueue;
@@ -33,8 +33,10 @@ public class Simulator {
     int totalReservationCar = 0;
     int totalAdHocCar = 0;
 
-    int carsPassed = 0;
+    double[] winst = {0.00,0.00,0.00,0.00,0.00,0.00,0.00};
 
+    int carsPassed = 0;
+    int number = 0;
 
     double moneyEarned = 0.00;
     double moneyEarnedDay = 0.00;
@@ -64,18 +66,30 @@ public class Simulator {
         exitCarQueue = new CarQueue();
         simulatorView = new SimulatorView(3, 6, 30);
     }
-
-    public void run() {
-        for (int i = 0; i < 10000; i++) {
+    public void run(){
+        for(int i = 0; i<10000; i++){
             tick();
         }
     }
+    /*
+    public void playPause() {
+        isRunning = (!isRunning) ? true : false;
+
+        simulatorView.updatePlayPauseButton(isRunning);
+
+        while(isRunning) {
+            tick();
+        }
+    }
+*/
 
     private void tick() {
         advanceTime();
         handleExit();
         updateViews();
         simulatorView.getCars(totalAdHocCar, totalParkingPassCar, totalReservationCar);
+        getCarsInQueue();
+        winstPerDag();
         // Pause.
         try {
             Thread.sleep(tickPause);
@@ -91,13 +105,16 @@ public class Simulator {
         while (minute > 59) {
             minute -= 60;
             hour++;
+            moneyEarned = 0;
         }
         while (hour > 23) {
             hour -= 24;
             day++;
+            moneyEarnedDay = 0;
         }
         while (day > 6) {
             day -= 7;
+            moneyEarnedWeek = 0;
         }
 
     }
@@ -173,7 +190,7 @@ public class Simulator {
         int i=0;
         while (paymentCarQueue.carsInQueue()>0 && i < paymentSpeed){
             Car car = paymentCarQueue.removeCar();
-            // TODO Handle payment.
+            CarPayment(car.getMinutesStayed(),car);
             carLeavesSpot(car);
             i++;
         }
@@ -224,215 +241,249 @@ public class Simulator {
         return (int)Math.round(numberOfCarsPerHour / 60);
     }
 
-    private void addArrivingCars(int numberOfCars, String type){
+    private void addArrivingCars(int numberOfCars, String type) {
         // Add the cars to the back of the queue.
-        switch(type) {
+        switch (type) {
             case AD_HOC:
                 for (int i = 0; i < numberOfCars; i++) {
                     entranceCarQueue.addCar(new AdHocCar(stayLeave(true)));
-                totalAdHocCar++;
+                    totalAdHocCar++;
                 }
                 break;
             case PASS:
                 for (int i = 0; i < numberOfCars; i++) {
                     entrancePassQueue.addCar(new ParkingPassCar(stayLeave(true)));
-                totalParkingPassCar++;
+                    totalParkingPassCar++;
                 }
                 break;
             case RESS:
                 if (hour > 6 && hour < 18)
-                for (int i = 0; i < numberOfCars; i++){
-                    entranceCarQueue.addCar(new ReservationCar(stayLeave(true)));
-                totalReservationCar++;
+                    for (int i = 0; i < numberOfCars; i++) {
+                        entranceCarQueue.addCar(new ReservationCar(stayLeave(true)));
+                        totalReservationCar++;
+                    }
+        }
+    }
+
+        private void carLeavesSpot (Car car){
+            simulatorView.removeCarAt(car.getLocation());
+            exitCarQueue.addCar(car);
+        }
+
+        public void getCarsInQueue () {
+            number = entranceCarQueue.carsInQueue();
+
+        }
+
+        public void winstPerDag () {
+            switch (this.day) {
+                case 0:
+                    winst[0] = 50.00;
+                    break;
+                case 1:
+                    winst[1] = moneyEarnedDay;
+                    break;
+                case 2:
+                    winst[2] = moneyEarnedDay;
+                    break;
+                case 3:
+                    winst[3] = moneyEarnedDay;
+                    break;
+                case 4:
+                    winst[4] = moneyEarnedDay;
+                    break;
+                case 5:
+                    winst[5] = moneyEarnedDay;
+                    break;
+                case 6:
+                    winst[6] = moneyEarnedDay;
+                    break;
+            }
+
+            simulatorView.getWinstPerDag(winst);
+
+        }
+
+        public double stayLeave ( boolean carArriving){
+            double drukte = 0;
+            if (carArriving) {
+                switch (hour) {
+                    case 0:
+                        drukte = Math.random() * 1.0 + 0;
+                        break;
+                    case 1:
+                        drukte = Math.random() * 0.5 + 0;
+                        break;
+                    case 2:
+                        drukte = Math.random() * 0.5 + 0;
+                        break;
+                    case 3:
+                        drukte = Math.random() * 0 + 0;
+                        break;
+                    case 4:
+                        drukte = Math.random() * 0 + 0;
+                        break;
+                    case 5:
+                        drukte = Math.random() * 1 + 0.5;
+                        break;
+                    case 6:
+                        drukte = Math.random() * 2.0 + 0.5;
+                        break;
+                    case 7:
+                        drukte = Math.random() * 5.0 + 1.5;
+                        break;
+                    case 8:
+                        drukte = Math.random() * 4. + 4.0;
+                        break;
+                    case 9:
+                        drukte = Math.random() * 5.0 + 3.0;
+                        break;
+                    case 10:
+                        drukte = Math.random() * 3.0 + 0.5;
+                        break;
+                    case 11:
+                        drukte = Math.random() * 4.0 + 0.5;
+                        break;
+                    case 12:
+                        drukte = Math.random() * 5.0 + 0.5;
+                        break;
+                    case 13:
+                        drukte = Math.random() * 3.0 + 0.5;
+                        break;
+                    case 14:
+                        drukte = Math.random() * 5.0 + 0.5;
+                        break;
+                    case 15:
+                        drukte = Math.random() * 3.0 + 0.5;
+                        break;
+                    case 16:
+                        drukte = Math.random() * 3.0 + 2.0;
+                        break;
+                    case 17:
+                        drukte = Math.random() * 3.0 + 0.5;
+                        break;
+                    case 18:
+                        drukte = Math.random() * 2.0 + 0.5;
+                        break;
+                    case 19:
+                        drukte = Math.random() * 1.5 + 1.0;
+                        break;
+                    case 20:
+                        drukte = Math.random() * 2.5 + 0;
+                        break;
+                    case 21:
+                        drukte = Math.random() * 2.5 + 0;
+                        break;
+                    case 22:
+                        drukte = Math.random() * 1.5 + 0;
+                        break;
+                    case 23:
+                        drukte = Math.random() * 1.3 + 0;
+                        break;
                 }
+            } else {
+                switch (hour) {
+                    case 0:
+                        drukte = Math.random() * 0.5 + 0;
+                        break;
+                    case 1:
+                        drukte = Math.random() * 0.2 + 0;
+                        break;
+                    case 2:
+                        drukte = Math.random() * 0.2 + 0;
+                        break;
+                    case 3:
+                        drukte = Math.random() * 0.2 + 0;
+                        break;
+                    case 4:
+                        drukte = Math.random() * 0.2 + 0;
+                        break;
+                    case 5:
+                        drukte = Math.random() * 0.2 + 0;
+                        break;
+                    case 6:
+                        drukte = Math.random() * 0.4 + 0;
+                        break;
+                    case 7:
+                        drukte = Math.random() * 0.9 + 0;
+                        break;
+                    case 8:
+                        drukte = Math.random() * 1.5 + 0.5;
+                        break;
+                    case 9:
+                        drukte = Math.random() * 1.5 + 0.6;
+                        break;
+                    case 10:
+                        drukte = Math.random() * 1.7 + 1.1;
+                        break;
+                    case 11:
+                        drukte = Math.random() * 1.9 + 0.9;
+                        break;
+                    case 12:
+                        drukte = Math.random() * 1.5 + 1.4;
+                        break;
+                    case 13:
+                        drukte = Math.random() * 1.9 + 0.5;
+                        break;
+                    case 14:
+                        drukte = Math.random() * 1.1 + 0.5;
+                        break;
+                    case 15:
+                        drukte = Math.random() * 1.2 + 0.5;
+                        break;
+                    case 16:
+                        drukte = Math.random() * 1.2 + 0.8;
+                        break;
+                    case 17:
+                        if (daysoftheWeek[day].equals("Thursday")) {
+                            drukte = Math.random() * 1.7 + 0.8;
+                        } else {
+                            drukte = Math.random() * 1.4 + 0.7;
+                        }
+                        break;
+                    case 18:
+                        if (daysoftheWeek[day].equals("Thursday")) {
+                            drukte = Math.random() * 2.0 + 1.5;
+                        } else {
+                            drukte = Math.random() * 1.5 + 0.9;
+                        }
+                        break;
+                    case 19:
+                        if (daysoftheWeek[day].equals("Thursday")) {
+                            drukte = Math.random() * 1.7 + 1.3;
+                        } else {
+                            drukte = Math.random() * 1.5 + 0.7;
+                        }
+                        break;
+                    case 20:
+                        if (daysoftheWeek[day].equals("Thursday")) {
+                            drukte = Math.random() * 1.9 + 1.2;
+                        } else if (daysoftheWeek[day].equals("Friday")) {
+                            drukte = Math.random() * 2.1 + 1.5;
+                        } else {
+                            drukte = Math.random() * 1.3 + 0.7;
+                        }
+                        break;
+                    case 21:
+                        if (daysoftheWeek[day].equals("Thursday")) {
+                            drukte = Math.random() * 1.5 + 1.1;
+                        } else if (daysoftheWeek[day].equals("Friday")) {
+                            drukte = Math.random() * 1.5 + 1;
+                        } else {
+                            drukte = Math.random() * 0.9 + 0.6;
+                        }
+                        break;
+                    case 22:
+                        drukte = Math.random() * 0.6 + 0.3;
+                        break;
+                    case 23:
+                        drukte = Math.random() * 0.5 + 0.2;
+                        break;
+
+                }
+            }
+            return drukte;
+
         }
     }
-
-    private void carLeavesSpot(Car car){
-        simulatorView.removeCarAt(car.getLocation());
-        exitCarQueue.addCar(car);
-    }
-    public double stayLeave(boolean carArriving) {
-        double drukte = 0;
-        if (carArriving) {
-            switch (hour) {
-                case 0:
-                    drukte = Math.random() * 1.0 + 0;
-                    break;
-                case 1:
-                    drukte = Math.random() * 0.5 + 0;
-                    break;
-                case 2:
-                    drukte = Math.random() * 0.5 + 0;
-                    break;
-                case 3:
-                    drukte = Math.random() * 0 + 0;
-                    break;
-                case 4:
-                    drukte = Math.random() * 0 + 0;
-                    break;
-                case 5:
-                    drukte = Math.random() * 1 + 0.5;
-                    break;
-                case 6:
-                    drukte = Math.random() * 2.0 + 0.5;
-                    break;
-                case 7:
-                    drukte = Math.random() * 5.0 + 1.5;
-                    break;
-                case 8:
-                    drukte = Math.random() * 4. + 4.0;
-                    break;
-                case 9:
-                    drukte = Math.random() * 5.0 + 3.0;
-                    break;
-                case 10:
-                    drukte = Math.random() * 3.0 + 0.5;
-                    break;
-                case 11:
-                    drukte = Math.random() * 4.0 + 0.5;
-                    break;
-                case 12:
-                    drukte = Math.random() * 5.0 + 0.5;
-                    break;
-                case 13:
-                    drukte = Math.random() * 3.0 + 0.5;
-                    break;
-                case 14:
-                    drukte = Math.random() * 5.0 + 0.5;
-                    break;
-                case 15:
-                    drukte = Math.random() * 3.0 + 0.5;
-                    break;
-                case 16:
-                    drukte = Math.random() * 3.0 + 2.0;
-                    break;
-                case 17:
-                    drukte = Math.random() * 3.0+ 0.5;
-                    break;
-                case 18:
-                    drukte = Math.random() * 2.0 + 0.5;
-                    break;
-                case 19:
-                    drukte = Math.random() * 1.5 + 1.0;
-                    break;
-                case 20:
-                    drukte = Math.random() * 2.5 + 0;
-                    break;
-                case 21:
-                    drukte = Math.random() * 2.5 + 0;
-                    break;
-                case 22:
-                    drukte = Math.random() * 1.5 + 0;
-                    break;
-                case 23:
-                    drukte = Math.random() * 1.3 + 0;
-                    break;
-            }
-        } else {
-            switch (hour) {
-                case 0:
-                    drukte = Math.random() * 0.5 + 0;
-                    break;
-                case 1:
-                    drukte = Math.random() * 0.2 + 0;
-                    break;
-                case 2:
-                    drukte = Math.random() * 0.2 + 0;
-                    break;
-                case 3:
-                    drukte = Math.random() * 0.2 + 0;
-                    break;
-                case 4:
-                    drukte = Math.random() * 0.2 + 0;
-                    break;
-                case 5:
-                    drukte = Math.random() * 0.2 + 0;
-                    break;
-                case 6:
-                    drukte = Math.random() * 0.4 + 0;
-                    break;
-                case 7:
-                    drukte = Math.random() * 0.9 + 0;
-                    break;
-                case 8:
-                    drukte = Math.random() * 1.5 + 0.5;
-                    break;
-                case 9:
-                    drukte = Math.random() * 1.5 + 0.6;
-                    break;
-                case 10:
-                    drukte = Math.random() * 1.7 + 1.1;
-                    break;
-                case 11:
-                    drukte = Math.random() * 1.9 + 0.9;
-                    break;
-                case 12:
-                    drukte = Math.random() * 1.5 + 1.4;
-                    break;
-                case 13:
-                    drukte = Math.random() * 1.9 + 0.5;
-                    break;
-                case 14:
-                    drukte = Math.random() * 1.1 + 0.5;
-                    break;
-                case 15:
-                    drukte = Math.random() * 1.2 + 0.5;
-                    break;
-                case 16:
-                    drukte = Math.random() * 1.2 + 0.8;
-                    break;
-                case 17:
-                    if (daysoftheWeek[day].equals("Thursday")) {
-                        drukte = Math.random() * 1.7 + 0.8;
-                    } else {
-                        drukte = Math.random() * 1.4 + 0.7;
-                    }
-                    break;
-                case 18:
-                    if (daysoftheWeek[day].equals("Thursday")) {
-                        drukte = Math.random() * 2.0 + 1.5;
-                    } else {
-                        drukte = Math.random() * 1.5 + 0.9;
-                    }
-                    break;
-                case 19:
-                    if (daysoftheWeek[day].equals("Thursday")) {
-                        drukte = Math.random() * 1.7 + 1.3;
-                    } else {
-                        drukte = Math.random() * 1.5 + 0.7;
-                    }
-                    break;
-                case 20:
-                    if (daysoftheWeek[day].equals("Thursday")) {
-                        drukte = Math.random() * 1.9 + 1.2;
-                    } else if (daysoftheWeek[day].equals("Friday")) {
-                        drukte = Math.random() * 2.1 + 1.5;
-                    } else {
-                        drukte = Math.random() * 1.3 + 0.7;
-                    }
-                    break;
-                case 21:
-                    if(daysoftheWeek[day].equals("Thursday")){
-                        drukte = Math.random() * 1.5 + 1.1;
-                    }
-                    else if (daysoftheWeek[day].equals("Friday")) {
-                        drukte = Math.random() * 1.5 + 1;
-                    } else {
-                        drukte = Math.random() * 0.9 + 0.6;
-                    }
-                    break;
-                case 22:
-                    drukte = Math.random() * 0.6 + 0.3;
-                    break;
-                case 23:
-                    drukte = Math.random() * 0.5 + 0.2;
-                    break;
-
-            }
-        }
-        return drukte;
-    }
-
-}
 

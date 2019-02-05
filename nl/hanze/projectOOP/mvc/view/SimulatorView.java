@@ -1,6 +1,5 @@
 package nl.hanze.projectOOP.mvc.view;
 import nl.hanze.projectOOP.mvc.model.Location;
-import nl.hanze.projectOOP.mvc.view.SimulatorView;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -20,7 +19,6 @@ public class SimulatorView extends JFrame {
     private int numberOfOpenSpots;
     private Car[][][] cars;
 
-
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -36,12 +34,14 @@ public class SimulatorView extends JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
 
     private int adHocCar = 0;
     private int parkingCar = 0;
     private int reservationCar = 0;
-
+    private int number = 0;
+    private double[] winst = {0.00,0.00,0.00,0.00,0.00,0.00,0.00};
 
     public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
 
@@ -63,8 +63,7 @@ public class SimulatorView extends JFrame {
 
     private void updateViewer(){
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.setValue(80, "Normaal", "Bezoekers");
-        dataset.setValue(10, "Abonnees", "Abonnementen");
+        dataset.setValue(number, "Mensen in de rij", "Bezoekers");
         JFreeChart chart = ChartFactory.createBarChart("Lengte Queue", "Soort auto", "Aantal", dataset, PlotOrientation.VERTICAL, true, true, false);
         jPanel1.setLayout(new java.awt.BorderLayout());
         jPanel1.setVisible(true);
@@ -74,13 +73,13 @@ public class SimulatorView extends JFrame {
         jPanel1.validate();
 
         DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
-        dataset1.setValue(10, "Dag", "Maandag");
-        dataset1.setValue(20, "Dag", "Dinsdag");
-        dataset1.setValue(30, "Dag", "Woensdag");
-        dataset1.setValue(40, "Dag", "Donderdag");
-        dataset1.setValue(50, "Dag", "Vrijdag");
-        dataset1.setValue(60, "Dag", "Zaterdag");
-        dataset1.setValue(70, "Dag", "Zondag");
+        dataset1.setValue(winst[0], "Dag", "Maandag");
+        dataset1.setValue(winst[1], "Dag", "Dinsdag");
+        dataset1.setValue(winst[2], "Dag", "Woensdag");
+        dataset1.setValue(winst[3], "Dag", "Donderdag");
+        dataset1.setValue(winst[4], "Dag", "Vrijdag");
+        dataset1.setValue(winst[5], "Dag", "Zaterdag");
+        dataset1.setValue(winst[6], "Dag", "Zondag");
         JFreeChart chart1 = ChartFactory.createLineChart("Opbrengst", "Dag", "Aantal", dataset1, PlotOrientation.VERTICAL, true, true, true);
         jPanel2.setLayout(new java.awt.BorderLayout());
         jPanel2.setVisible(true);
@@ -123,28 +122,33 @@ public class SimulatorView extends JFrame {
         jSpinner1 = new javax.swing.JSpinner();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel4 = new javax.swing.JPanel();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jToggleButton1.setText("Start/Stop");
-
+        jButton1.setText("Start");
+        jButton2.setText("Stop");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
                 jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(160, Short.MAX_VALUE))
+                                .addContainerGap()
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(115, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
                 jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jToggleButton1)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jButton1)
+                                        .addComponent(jButton2))
                                 .addContainerGap(136, Short.MAX_VALUE))
         );
 
@@ -358,6 +362,15 @@ public class SimulatorView extends JFrame {
         this.adHocCar = totalAdHocCar;
         this.parkingCar = totalParkingPassCar;
         this.reservationCar  = totalReservationCar;
+    }
+    public void carInQueue(int number)
+    {
+        this.number = number;
+    }
+    public void getWinstPerDag(double[] winst){
+        for(int i = 0; i < 7; i++){
+            this.winst[i] = winst[i];
+        }
     }
 
     public Car getCarAt(Location location) {
