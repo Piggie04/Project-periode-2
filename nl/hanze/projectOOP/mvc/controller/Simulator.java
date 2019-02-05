@@ -13,9 +13,10 @@ public class Simulator {
 
 	private static final String AD_HOC = "1";
 	private static final String PASS = "2";
-	
-	
-	private CarQueue entranceCarQueue;
+    private static final String RESERVATION = "3";
+
+
+    private CarQueue entranceCarQueue;
     private CarQueue entrancePassQueue;
     private CarQueue paymentCarQueue;
     private CarQueue exitCarQueue;
@@ -185,17 +186,17 @@ public class Simulator {
 
     private void CarPayment(int timeStayed, Car car) {
         switch (car.getClass().getName()) {
-            case "nl.hanze.projectOOP.mvc.ParkingPassCar":
+            case PASS:
                 moneyEarned += (40.00);
                 moneyEarnedDay += (40.00);
                 moneyEarnedWeek += (40.00);
                 break;
-            case "nl.hanze.projectOOP.mvc.ReservationCar":
+            case RESERVATION:
                 moneyEarned += (timeStayed / 60) *priceCarparking + 5;
                 moneyEarnedDay += timeStayed / 60 *priceCarparking + 5;
                 moneyEarnedWeek += timeStayed / 60 *priceCarparking + 5;
                 break;
-            case "nl.hanze.projectOOP.mvc.AdHocCar":
+            case AD_HOC:
                 moneyEarned += timeStayed/60 * priceCarparking;
                 moneyEarnedDay += timeStayed/60 * priceCarparking;
                 moneyEarnedWeek += timeStayed/60 * priceCarparking;
@@ -235,19 +236,19 @@ public class Simulator {
     private void addArrivingCars(int numberOfCars, Car car) {
         // Add the cars to the back of the queue.
         switch (car.getClass().getName()) {
-            case "nl.hanze.projectOOP.mvc.AdHocCar":
+            case AD_HOC:
                 for (int i = 0; i < numberOfCars; i++) {
                     entranceCarQueue.addCar(new AdHocCar(stayLeave(true)));
                     totalAdHocCar++;
                 }
                 break;
-            case "nl.hanze.projectOOP.mvc.ParkingPassCar":
+            case PASS:
                 for (int i = 0; i < numberOfCars; i++) {
                     entranceCarQueue.addCar(new ParkingPassCar(stayLeave(true)));
                     totalParkingPassCar++;
                 }
                 break;
-            case "nl.hanze.projectOOP.mvc.ReservationCar":
+            case RESERVATION:
                 for (int i = 0; i < numberOfCars; i++) {
                     ReservationCar reservationCar = new ReservationCar(stayLeave(true));
                     moneyEarned += (((reservationCar.getMinutesLeft() / 60) * 2.50) + 5);
