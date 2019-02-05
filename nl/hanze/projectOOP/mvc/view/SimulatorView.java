@@ -36,12 +36,14 @@ public class SimulatorView extends JFrame {
     private javax.swing.JSpinner jSpinner1;
     public javax.swing.JButton jButton1;
     public javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel2;
 
     private int adHocCar = 0;
     private int parkingCar = 0;
     private int reservationCar = 0;
     public int number;
     private double[] winst = {0.00,0.00,0.00,0.00,0.00,0.00,0.00};
+    private String dagen = "";
 
     public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
 
@@ -123,12 +125,13 @@ public class SimulatorView extends JFrame {
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setText("Start");
         jButton2.setText("Stop");
+        jLabel2.setText(dagen);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -139,7 +142,9 @@ public class SimulatorView extends JFrame {
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(115, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
                 jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,8 +152,9 @@ public class SimulatorView extends JFrame {
                                 .addContainerGap()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jButton1)
-                                        .addComponent(jButton2))
-                                .addContainerGap(136, Short.MAX_VALUE))
+                                        .addComponent(jButton2)
+                                        .addComponent(jLabel2))
+                                .addContainerGap(115, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout startknopLayout = new javax.swing.GroupLayout(startKnop);
@@ -288,6 +294,7 @@ public class SimulatorView extends JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
+
         javax.swing.GroupLayout tellersLayout = new javax.swing.GroupLayout(tellers);
         tellers.setLayout(tellersLayout);
         tellersLayout.setHorizontalGroup(
@@ -298,8 +305,8 @@ public class SimulatorView extends JFrame {
         tellersLayout.setVerticalGroup(
                 tellersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(tellersLayout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-        ));
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -337,6 +344,40 @@ public class SimulatorView extends JFrame {
     public void updateView() {
         carParkView.updateView();
         updateViewer();
+    }
+
+    public void dagenTeller(int day,int hour,int minute) {
+        String dag = "";
+        String minuut;
+        String uur;
+        switch(day){
+            case(0):
+                dag = "Maandag";
+                break;
+            case(1):
+                dag = "Dinsdag";
+                break;
+            case(2):
+                dag = "Woensdag";
+                break;
+            case(3):
+                dag = "Donderdag";
+                break;
+            case(4):
+                dag = "Vrijdag";
+                break;
+            case(5):
+                dag = "Zaterdag";
+                break;
+            case(6):
+                dag = "Zondag";
+                break;
+        }
+        uur = Integer.toString(hour);
+        minuut = Integer.toString(minute);
+        dagen = dag + " " + uur + ":" + minuut;
+        jLabel2.setText(dagen);
+        System.out.println(dagen);
     }
 
     public int getNumberOfFloors() {

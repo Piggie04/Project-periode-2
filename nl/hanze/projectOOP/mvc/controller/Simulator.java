@@ -127,7 +127,7 @@ public class Simulator implements ActionListener {
             day -= 7;
             moneyEarnedWeek = 0;
         }
-
+        simulatorView.dagenTeller(day, hour, minute);
     }
 
     private void handleEntrance(){
